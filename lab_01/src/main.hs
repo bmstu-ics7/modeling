@@ -33,6 +33,17 @@ implicit n h
         plus  = (1 + discr) / (2 * h)
         minus = (1 - discr) / (2 * h)
 
+makeZip :: [a] -> [b] -> [c] -> [d] -> [e] -> [(a, b, c, d, e)]
+makeZip [] _ _ _ _ = []
+makeZip _ [] _ _ _ = []
+makeZip _ _ [] _ _ = []
+makeZip _ _ _ [] _ = []
+makeZip _ _ _ _ [] = []
+makeZip (x:xs) (pi3:pi3s) (pi4: pi4s) (ex:exs) (im:ims) = (x, pi3, pi4, ex, im) : makeZip xs pi3s pi4s exs ims
+
+makeRow :: [a] -> [b] -> [c] -> [d] -> [e] -> [(a, b, c, d, e)]
+makeRow x pi3 pi4 ex im = reverse (makeZip (reverse x) (reverse pi3) (reverse pi4) (reverse ex) (reverse im))
+
 truncate' :: Double -> Int -> Double
 truncate' x n = (fromIntegral (floor (x * t))) / t
   where t = 10 ^ n
@@ -47,11 +58,14 @@ main = do
                        (titlesH ["x", "Пикар (3)", "Пикар (4)", "Явная схема", "Неявная схема"])
                        [ rowG [
                                 show (truncate' x 6),
-                                show (truncate' (pikara 3 x) 6),
-                                show (truncate' (pikara 4 x) 6),
-                                show (truncate' (expl) 6),
-                                show (truncate' (impl) 6)
-                              ] | x <- [xstart, xstep .. xend],
-                                  expl <- explicit (round (xend)) xstep,
-                                  impl <- implicit (round (xend)) xstep
+                                show (truncate' pi3 6),
+                                show (truncate' pi4 6),
+                                show (truncate' ex 6),
+                                show (truncate' im 6)
+                              ] | (x, pi3, pi4, ex, im) <- makeRow
+                                                                [xstart, xstep .. xend]
+                                                                [pikara 3 x | x <- [xstart, xstep .. xend]]
+                                                                [pikara 4 x | x <- [xstart, xstep .. xend]]
+                                                                (explicit (round (xend / xstep)) xstep)
+                                                                (implicit (round (xend / xstep)) xstep)
                        ]
