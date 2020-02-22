@@ -1,9 +1,12 @@
 import Text.Layout.Table
 import System.Environment
 
+f 1 = 1
+f n = n * f (n - 1)
+
 pikara :: Int -> Double -> Double
 pikara 1 x = (1 / 3) * (x^3)
-pikara 2 x = pikara 1 x + (1 / 21) * (x^7)
+pikara 2 x = pikara 1 x + (1 / 63) * (x^7)
 pikara 3 x = pikara 2 x + (2 / 2079) * (x^8) + (1 / 59535) * (x^15)
 pikara 4 x = pikara 3 x +
     (2 / 93555)        * (x^15) +
@@ -47,6 +50,7 @@ makeRow x pi3 pi4 ex im = reverse (makeZip (reverse x) (reverse pi3) (reverse pi
 truncate' :: Double -> Int -> Double
 truncate' x n = (fromIntegral (floor (x * t))) / t
   where t = 10 ^ n
+
 main :: IO ()
 main = do
     [start, step, end] <- getArgs

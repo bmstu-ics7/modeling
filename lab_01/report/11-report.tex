@@ -71,7 +71,7 @@
 \begin{lstlisting}[label=lst:pic,caption=Метод Пикара]
 pikara :: Int -> Double -> Double
 pikara 1 x = (1 / 3) * (x^3)
-pikara 2 x = pikara 1 x + (1 / 21) * (x^7)
+pikara 2 x = pikara 1 x + (1 / 63) * (x^7)
 pikara 3 x = pikara 2 x +
     (2 / 2079) * (x^8) +
     (1 / 59535) * (x^15)
