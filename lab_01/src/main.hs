@@ -24,11 +24,11 @@ explicit n h = arr ++ [prev + h * (x^2 + prev^2)]
 implicit :: Int -> Double -> [Double]
 implicit 0 _ = [0]
 implicit n h
-    | plus < 0  = arr ++ [minus]
-    | minus < 0 = arr ++ [plus]
-    | otherwise = arr ++ [min plus minus]
+    | plus <= 0  = arr ++ [minus]
+    | minus <= 0 = arr ++ [plus]
+    | otherwise  = arr ++ [min plus minus]
   where arr   = implicit ((fromIntegral n) - 1) h
-        c     = last arr + h * (((fromIntegral n) * h)^2)
+        c     = (last arr) + h * (((fromIntegral n) * h)^2)
         discr = sqrt (1 - 4 * h * c)
         plus  = (1 + discr) / (2 * h)
         minus = (1 - discr) / (2 * h)
@@ -63,9 +63,9 @@ main = do
                                 show (truncate' ex 6),
                                 show (truncate' im 6)
                               ] | (x, pi3, pi4, ex, im) <- makeRow
-                                                                [xstart, xstep .. xend]
-                                                                [pikara 3 x | x <- [xstart, xstep .. xend]]
-                                                                [pikara 4 x | x <- [xstart, xstep .. xend]]
+                                                                [xstart, (xstart + xstep) .. xend]
+                                                                [pikara 3 x | x <- [xstart, (xstart + xstep) .. xend]]
+                                                                [pikara 4 x | x <- [xstart, (xstart + xstep) .. xend]]
                                                                 (explicit (round (xend / xstep)) xstep)
                                                                 (implicit (round (xend / xstep)) xstep)
                        ]
