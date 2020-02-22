@@ -1,0 +1,116 @@
+\textbf{Цель работы:} Изучить методы решения задачи Коши для ОДУ,
+применив приближенный аналитический метод Пикара и численный метод
+Эйлера в явном и неявном вариантах.
+
+\textbf{Задание:} Решить уравнение (формула \ref{eq:task}),
+не имеющее аналитического решения.
+
+\begin{equation}\label{eq:task}
+    \begin{cases}
+        u'(x) = f(x,u) \\
+        u(\xi) = y
+    \end{cases}
+\end{equation}
+
+Уравнение можно решить \textbf{методом Пикара} (формула \ref{eq:pik})
+
+\begin{equation}\label{eq:pik}
+    \begin{matrix}
+        y^{(s)}(x) = \eta + \int_0^x f(t, y^{(s-1)}(t)) dt \\
+        \\
+        y^{(0)} = \eta \\
+    \end{matrix}
+\end{equation}
+
+Для задачи получим 4 приближения (формулы \ref{eq:p1}, \ref{eq:p2},
+\ref{eq:p3}, \ref{eq:p4})
+
+\begin{equation}\label{eq:p1}
+    y^{(1)} = \frac{x^3}{3}
+\end{equation}
+
+\begin{equation}\label{eq:p2}
+    y^{(2)} = \frac{x^3}{3} + \frac{x^7}{21}
+\end{equation}
+
+\begin{equation}\label{eq:p3}
+    y^{(3)} = \frac{x^3}{3} + \frac{x^7}{21} + \frac{2 \cdot x^8}{2079}
+    + \frac{x^{15}}{59535}
+\end{equation}
+
+\begin{multline}\label{eq:p4}
+        y^{(4)} = \frac{x^3}{3} + \frac{x^7}{21} +
+        \frac{2 \cdot x^8}{2079} +
+        \frac{x^{15}}{59535} +
+        \frac{2 \cdot x^{15}}{93555} +
+        \frac{2 \cdot x^{19}}{3393495} + \\
+        \frac{2 \cdot x^{29}}{2488563} +
+        \frac{2 \cdot x^{23}}{86266215} +
+        \frac{x^{23}}{99411543} +
+        \frac{2 \cdot x^{27}}{3341878155} +
+        \frac{x^{31}}{109876902975}
+\end{multline}
+
+Также уравнение решается \textbf{численным методом Эйлера}
+
+Явная схема (формула \ref{eq:ex})
+
+\begin{equation}\label{eq:ex}
+    y_{n+1} = y_n + h \cdot f(x_n, y_n)
+\end{equation}
+
+Неявная схема (формула \ref{eq:im})
+
+\begin{equation}\label{eq:im}
+    y_{n+1} = y_n + h \cdot (f(x_{n+1}, y_{n+1}))
+\end{equation}
+
+На листинге \ref{lst:pic} представлен код решения уравнения методом
+Пикара.
+
+\begin{lstlisting}[label=lst:pic,caption=Метод Пикара]
+pikara :: Int -> Double -> Double
+pikara 1 x = (1 / 3) * (x^3)
+pikara 2 x = pikara 1 x + (1 / 63) * (x^7)
+pikara 3 x = pikara 2 x +
+    (2 / 2079) * (x^8) +
+    (1 / 59535) * (x^15)
+pikara 4 x = pikara 3 x +
+    (2 / 93555)        * (x^15) +
+    (2 / 3393495)      * (x^19) +
+    (2 / 2488563)      * (x^19) +
+    (2 / 86266215)     * (x^23) +
+    (1 / 99411543)     * (x^23) +
+    (2 / 3341878155)   * (x^27) +
+    (1 / 109876902975) * (x^31)
+\end{lstlisting}
+
+
+На листинге \ref{lst:ex} представлен код решения уравнения явной
+схемой метода Эйлера.
+
+\begin{lstlisting}[label=lst:ex,caption=Явная схема метода Эйлера]
+explicit :: Int -> Double -> [Double]
+explicit 0 _ = [0]
+explicit n h = arr ++ [prev + h * (x^2 + prev^2)]
+  where arr  = explicit ((fromIntegral n) - 1) h
+        prev = last arr
+        x    = (fromIntegral n) * h
+\end{lstlisting}
+
+На листинге \ref{lst:im} представлен код решения уравнения неявной
+схемой метода Эйлера.
+
+\begin{lstlisting}[label=lst:im,caption=Неявная схема метода Эйлера]
+implicit :: Int -> Double -> [Double]
+implicit 0 _ = [0]
+implicit n h
+    | plus < 0  = arr ++ [minus]
+    | minus < 0 = arr ++ [plus]
+    | otherwise = arr ++ [min plus minus]
+  where arr   = implicit ((fromIntegral n) - 1) h
+        c     = last arr + h * (((fromIntegral n) * h)^2)
+        discr = sqrt (1 - 4 * h * c)
+        plus  = (1 + discr) / (2 * h)
+        minus = (1 - discr) / (2 * h)
+\end{lstlisting}
