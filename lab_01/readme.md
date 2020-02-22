@@ -1,6 +1,6 @@
 # Лабораторная работа 1
 
-$$`\begin{cases} u'(x) = f(x,u) \\ u(\xi) = y  \end{cases}`$$
+$`\begin{cases} u'(x) = f(x,u) \\ u(\xi) = y  \end{cases}`$
 
 * Метод пикара
 
