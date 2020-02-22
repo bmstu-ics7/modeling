@@ -4,7 +4,7 @@ $`\begin{cases} u'(x) = f(x,u) \\ u(\xi) = y  \end{cases}`$
 
 * Метод пикара
 
-    $`\begin{matrix} y^{(s)}(x) = \eta + \int_0^x f(t, y^{(s-1)}(t)) dt\\ y^{(0)} = \eta \\ \end{matrix}`$
+    $`\begin{matrix} y^{(s)}(x) = \eta + \int_0^x f(t, y^{(s-1)}(t)) dt\\ \\ y^{(0)} = \eta \\ \end{matrix}`$
 
 * Численный метод Эйлера
     - Явная форма
