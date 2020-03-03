@@ -1,9 +1,6 @@
 import Text.Layout.Table
 import System.Environment
 
-f 1 = 1
-f n = n * f (n - 1)
-
 pikara :: Int -> Double -> Double
 pikara 1 x = (1 / 3) * (x^3)
 pikara 2 x = pikara 1 x + (1 / 63) * (x^7)
