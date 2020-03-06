@@ -247,6 +247,21 @@
    <header>QtCharts</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>lineL</tabstop>
+  <tabstop>lineR</tabstop>
+  <tabstop>lineU</tabstop>
+  <tabstop>lineI</tabstop>
+  <tabstop>lineTau</tabstop>
+  <tabstop>lineT</tabstop>
+  <tabstop>buttonCalculate</tabstop>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>chartI</tabstop>
+  <tabstop>chartR</tabstop>
+  <tabstop>chartU</tabstop>
+  <tabstop>chartT</tabstop>
+  <tabstop>chartIR</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

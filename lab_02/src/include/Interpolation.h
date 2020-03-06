@@ -1,8 +1,6 @@
 #ifndef __INTERPOLATION_H
 #define __INTERPOLATION_H
 
-#include "Exception.h"
-
 struct Point
 {
     double x;
@@ -15,8 +13,9 @@ public:
     static double getT(double I);
     static double getM(double I);
     static double getSig(double T);
+
 private:
-    static double get(Point *table, double x, size_t len);
+    static double get(Point *table, double x, unsigned short int len);
     static Point _tableIT[9];
     static Point _tableIM[9];
     static Point _tableTSig[11];

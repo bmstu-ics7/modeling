@@ -17,7 +17,6 @@ set(HEADERS
     include/Mathematics.h
     include/GraphicsBuilder.h
     include/Interpolation.h
-    include/Exception.h
 )
 
 set(SOURCES
@@ -26,7 +25,6 @@ set(SOURCES
     source/Mathematics.cc
     source/GraphicsBuilder.cc
     source/Interpolation.cc
-    source/Exception.cc
 )
 
 set(GUI

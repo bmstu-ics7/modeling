@@ -2,28 +2,28 @@
 
 Point Interpolation::_tableIT[9] =
 {
-    { 0.5,  6700 },
-    { 1,    6790 },
-    { 5,    7150 },
-    { 10,   7270 },
-    { 50,   8010 },
-    { 200,  9185 },
-    { 400,  10010 },
-    { 800,  11140 },
-    { 1200, 12010 }
+    { 0.5,   6700 },
+    { 1,     6790 },
+    { 5,     7150 },
+    { 10,    7270 },
+    { 50,    8010 },
+    { 200,   9185 },
+    { 400,   10010 },
+    { 800,   11140 },
+    { 1200,  12010 }
 };
 
 Point Interpolation::_tableIM[9] =
 {
-    { 0.5,  0.50 },
-    { 1,    0.55 },
-    { 5,    1.70 },
-    { 10,   3.0 },
-    { 50,   11.0 },
-    { 200,  32.0 },
-    { 400,  40.0 },
-    { 800,  41.0 },
-    { 1200, 39.0 }
+    { 0.5,   0.50 },
+    { 1,     0.55 },
+    { 5,     1.70 },
+    { 10,    3.0 },
+    { 50,    11.0 },
+    { 200,   32.0 },
+    { 400,   40.0 },
+    { 800,   41.0 },
+    { 1200,  39.0 }
 };
 
 Point Interpolation::_tableTSig[11] =
@@ -41,7 +41,7 @@ Point Interpolation::_tableTSig[11] =
     { 14000, 81.5 },
 };
 
-double Interpolation::get(Point *table, double x, size_t len)
+double Interpolation::get(Point *table, double x, unsigned short int len)
 {
     int index = -1;
     for (int i = 1; i < len; ++i) {
@@ -51,7 +51,8 @@ double Interpolation::get(Point *table, double x, size_t len)
     }
 
     if (index == -1) {
-        throw NotFoundValueException("Not found I in table ITM");
+        if (x <= table[0].x) return table[0].y;
+        else return table[len - 1].y;
     }
 
     double x0 = table[index - 1].x;

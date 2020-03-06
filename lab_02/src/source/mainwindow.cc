@@ -36,14 +36,37 @@ void MainWindow::clickButtonCalculate()
 
     Mathematics math = Mathematics(L, R, U, I, tau, t);
 
-    GraphicsBuilder build = GraphicsBuilder(ui->chartI);
-    for (int i = 0; i < 100; ++i)
-        build.addPoint(i, sqrt(i));
-    build.editLabel("kekas");
-    build.editAsixLabels("x axis", "y axis");
-    build.setChart();
+    math.process();
 
-    qDebug() << Interpolation::getT(I);
-    qDebug() << Interpolation::getM(I);
-    qDebug() << Interpolation::getSig(t);
+    GraphicsBuilder builderI(ui->chartI);
+    GraphicsBuilder builderR(ui->chartR);
+    GraphicsBuilder builderU(ui->chartU);
+    GraphicsBuilder builderT(ui->chartT);
+    GraphicsBuilder builderIR(ui->chartIR);
+
+    for (int i = 0; i < math.timevec.size(); ++i) {
+        builderI.addPoint(math.timevec[i], math.Ivec[i]);
+        builderR.addPoint(math.timevec[i], math.Rvec[i]);
+        builderU.addPoint(math.timevec[i], math.Uvec[i]);
+        builderT.addPoint(math.timevec[i], math.Tvec[i]);
+        builderIR.addPoint(math.timevec[i], math.Ivec[i] * math.Rvec[i]);
+    }
+
+    builderI.editLabel("Сила тока в цепи");
+    builderR.editLabel("Сопротивление лампы");
+    builderU.editLabel("Напряжение на конденсаторе");
+    builderT.editLabel("Температура");
+    builderIR.editLabel("Напряжение на лампе");
+
+    builderI.editAsixLabels("time", "I");
+    builderR.editAsixLabels("time", "Rp");
+    builderU.editAsixLabels("time", "Uc");
+    builderT.editAsixLabels("time", "T0");
+    builderIR.editAsixLabels("time", "T * Rp");
+
+    builderI.setChart();
+    builderR.setChart();
+    builderU.setChart();
+    builderT.setChart();
+    builderIR.setChart();
 }
