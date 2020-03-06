@@ -60,20 +60,6 @@ double Mathematics::integral(double z, double I)
 
 double Mathematics::simpson(double a, double b, double I)
 {
-    /*
-    double h = (b - a) / _n;
-    double result = h * (integral(a, I) + integral(b, I)) / 6.0;
-
-    for (int i = 1; i <= _n; ++i) {
-        result += 4.0 / 6.0 * h * integral(a + h * (i - 0.5), I);
-    }
-
-    for (int i = 1; i <= _n - 1; ++i) {
-        result += 2.0 / 6.0 * h * integral(a + h * i, I);
-    }
-
-    return result;
-    */
     double h = (b - a) / _n;
     double k1 = 0, k2 = 0;
 
