@@ -32,8 +32,8 @@ void Mathematics::iteration()
     double k4 = f(_I + _tau * k3, _Uc + _tau * m3);
     double m4 = g(_I + _tau * k3);
 
-    _I  += _tau * ((k1 + 2 * k2 + 2 * k3 + k4) / 6.0);
-    _Uc += _tau * ((m1 + 2 * m2 + 2 * m3 + m4) / 6.0);
+    _I  += _tau * ((k1 + 2.0 * k2 + 2.0 * k3 + k4) / 6.0);
+    _Uc += _tau * ((m1 + 2.0 * m2 + 2.0 * m3 + m4) / 6.0);
 }
 
 double Mathematics::f(double I, double Uc)
@@ -50,29 +50,26 @@ double Mathematics::T(double z, double I)
 {
     double T0 = Interpolation::getT(I);
     double m = Interpolation::getM(I);
-    return T0 + (2000 - T0) * std::pow(z, m);
+    return T0 + (_Tw - T0) * std::pow(z, m);
 }
 
 double Mathematics::integral(double z, double I)
 {
-    return Interpolation::getSig(T(z, I)) * z;
+    return Interpolation::getSig(T(z / double(_n), I)) * z;
 }
 
-double Mathematics::simpson(double a, double b, double I)
+double Mathematics::trapezion(double a, double b, double I)
 {
-    double h = (b - a) / _n;
-    double k1 = 0, k2 = 0;
-
-    for (int i = 1; i < _n; i += 2) {
-        k1 += integral(a + i * h, I);
-        k2 += integral(a + (i + 1) * h, I);
+    double result = 0;
+    for (int z = 0; z < _n; ++z) {
+        result += integral(z, I);
     }
-
-    return h / 3.0 * (integral(a, I) + 4 * k1 + 2 * k2);
+    return result;
 }
 
 double Mathematics::Rp(double I)
 {
     I = std::abs(I);
-    return _Le / (2 * M_PI * _R * _R * simpson(0, 1, I));
+    return _Le / (2.0 * M_PI * _R * _R * trapezion(0.0, 1.0, I));
+    // return 0;
 }

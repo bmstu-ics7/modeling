@@ -47,6 +47,7 @@ double Interpolation::get(Point *table, double x, unsigned short int len)
     for (int i = 1; i < len; ++i) {
         if (x >= table[i - 1].x && x <= table[i].x) {
             index = i;
+            break;
         }
     }
 

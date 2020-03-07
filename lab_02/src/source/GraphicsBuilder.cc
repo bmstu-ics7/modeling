@@ -27,13 +27,13 @@ void GraphicsBuilder::editAsixLabels(QString x, QString y)
     _chart->addSeries(_series);
 
     QValueAxis *axisX = new QValueAxis();
-    axisX->setLabelFormat("%.2f");
+    axisX->setLabelFormat("%.5f");
     axisX->setTitleText(x);
     _chart->addAxis(axisX, Qt::AlignBottom);
     _series->attachAxis(axisX);
 
     QValueAxis *axisY = new QValueAxis();
-    axisY->setLabelFormat("%.2f");
+    axisY->setLabelFormat("%.5f");
     axisY->setTitleText(y);
     _chart->addAxis(axisY, Qt::AlignLeft);
     _series->attachAxis(axisY);
