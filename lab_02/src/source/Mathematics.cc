@@ -55,13 +55,14 @@ double Mathematics::T(double z, double I)
 
 double Mathematics::integral(double z, double I)
 {
-    return Interpolation::getSig(T(z / double(_n), I)) * z;
+    return Interpolation::getSig(T(z, I)) * (z);
 }
 
 double Mathematics::trapezion(double a, double b, double I)
 {
     double result = 0;
-    for (int z = 0; z < _n; ++z) {
+    double step = (b - a) / double(_n);
+    for (double z = a; z < b; z += step) {
         result += integral(z, I);
     }
     return result;
