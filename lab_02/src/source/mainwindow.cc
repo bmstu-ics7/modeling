@@ -61,7 +61,7 @@ void MainWindow::clickButtonCalculate()
     builderR.editAsixLabels("time", "Rp");
     builderU.editAsixLabels("time", "Uc");
     builderT.editAsixLabels("time", "T0");
-    builderIR.editAsixLabels("time", "T * Rp");
+    builderIR.editAsixLabels("time", "I * Rp");
 
     builderI.setChart();
     builderR.setChart();
