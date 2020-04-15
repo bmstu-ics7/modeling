@@ -127,7 +127,7 @@
     f_\frac{1}{2} = \frac{f_0 + f_1}{2}
 \end{equation*}
 
-Разностные аналоги кравевых условий при $x = 1$. Проинтегрируем \ref{eq:t(x)} на отрезке $\big[ x_n-\frac{1}{2}; x_n \big]$
+Разностные аналоги кравевых условий при $x = l$. Проинтегрируем \ref{eq:t(x)} на отрезке $\big[ x_n-\frac{1}{2}; x_n \big]$
 
 \begin{equation*}
     -\int_{X_{n-\frac{1}{2}}}^{X_n} \frac{dF}{dx} dx -
@@ -163,7 +163,7 @@
     \frac{x_{n-\frac{1}{2}} y_{n-1}}{h} -
     \frac{x_{n-\frac{1}{2}} y_{n}}{h} -
     \alpha_ny_n +
-    \alpha_nt_0 -
+    \alpha_nT_0 -
     \frac{p_{n-\frac{1}{2}} y_{n-1}}{8}h -
     \frac{p_{n-\frac{1}{2}} y_{n}}{8}h -
     \frac{p_{n}y_{n}}{4}h +
@@ -175,7 +175,7 @@
     \frac{p_n}{4}h - \frac{p_{n-\frac{1}{2}}}{8} h \bigg) +
     y_{n-1} \cdot \bigg( \frac{x_{n-\frac{1}{2}}}{h} -
     \frac{p_{n-\frac{1}{2}}}{8} h \bigg) = - \bigg(
-    \alpha_n + \frac{f_{n-\frac{1}{2}} + f_n}{4} h \bigg)
+    \alpha_nT_0 + \frac{f_{n-\frac{1}{2}} + f_n}{4} h \bigg)
 \end{equation}
 
 С помощью формул \ref{eq:start_left} и \ref{eq:left} получаем коэффициенты
@@ -425,7 +425,7 @@ void Mathematics::findResult()
 \subsection{Какие способы тестирования программы можно предложить?}
 
 \begin{enumerate}
-    \item Ввести $F_0$ (тепловой поток) меньше нуля. Это означает, что съем тепла идет слева, поэтому температа будет увеличиваться от $0$ до $l$.
+    \item Ввести $F_0$ (тепловой поток) меньше нуля. Это означает, что съем тепла идет слева, поэтому температура будет увеличиваться от $0$ до $l$.
     \item Ввести $F_0$ (тепловой поток) равным нулю. Это значит, что тепловое нагружение отсутствует, поэтому температура стержня будет везде равна температуре окружающей среды.
     \item Увеличить значения коэффициента теплоотдачи в несколько раз, Это значит, что стержень будет отдавать больше тепла и скорость снижения температуры будет увеличена.
 \end{enumerate}
@@ -466,8 +466,69 @@ void Mathematics::findResult()
 \begin{equation*}
     \begin{cases}
         x = 0, -k(0) \frac{dT}{dx} = F_0 \\
-        x = l, -k(l) \frac{dT}{dx} = \alpha_N(T(l) - T_0) + \varphi(T) \\
+        x = l, -k(l) \frac{dT}{dx} = \alpha_N\big(T(l) - T_0\big) + \varphi(T) \\
     \end{cases}
+\end{equation*}
+
+Поскольку краевое условие при $x=0$ линейное, то будем использовать правую прогонку.
+
+\begin{equation*}
+    y_n = \varepsilon_{n+1} y_{n+1} + \eta_{n+1}
+\end{equation*}
+
+Используем аппроксимацию первого порядка точности для краевого условия $x=0$
+
+\begin{equation*}
+    -k_0 \frac{T_1 - T_0}{h} = F_0
+\end{equation*}
+
+\begin{equation*}
+    T_0 - T_1 = \frac{F_0h}{k_0}
+\end{equation*}
+
+\begin{equation*}
+    \begin{cases}
+        K_0 = 1 \\
+        M_0 = -1 \\
+        P_0 = \frac{F_0h}{k_0} \\
+    \end{cases}
+\end{equation*}
+
+Разностная аппроксимация для краевого условия $x=l$ будет иметь вид
+
+\begin{equation*}
+    -k_l \frac{T_l - T_{l-1}}{h} = \alpha_N\big(T_l - T_0\big) + \varphi(T_l)
+\end{equation*}
+
+\begin{equation*}
+    k_lT_{l-1} + k_lT_l = \alpha_N T_l h - \alpha_NT_0 h + \varphi(T_l) h
+\end{equation*}
+
+\begin{equation*}
+    k_lT_{l-1} + (k_l - \alpha_Nh)T_l = \varphi(T_l)h - \alpha_NT_0h
+\end{equation*}
+
+\begin{equation*}
+    \begin{cases}
+        K_l = k_l - \alpha_Nh \\
+        M_l = k_l \\
+        P_l = \varphi(T_l)h - \alpha_NT_0h \\
+    \end{cases}
+\end{equation*}
+
+Начальные прогоночные коэффициенты будут равны
+
+\begin{equation*}
+    \begin{cases}
+        \varphi_1 = -\frac{M_0}{K_0} \\
+        \eta_1 = \frac{P_0}{K_0}
+    \end{cases}
+\end{equation*}
+
+Значение $T$ в точке $l$ будет равно
+
+\begin{equation*}
+    T_l = \frac{P_l - M_l \eta_l}{K_l + M_l \varepsilon_l}
 \end{equation*}
 
 \subsection{Опишите алгоритм определения единственного значения сеточной функции $y_p$ в одной заданной точке $p$. Использовать встречную прогонку, то есть комбинацию правой и левой прогонок. Краевые условия линейны.}
