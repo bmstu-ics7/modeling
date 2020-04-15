@@ -18,7 +18,7 @@ public:
 private:
     QChart *_chart;
     QChartView *_view;
-    QLineSeries *_series;
+    QSplineSeries *_series;
     QChart::ChartTheme chartTheme = QChart::ChartThemeDark;
 };
 

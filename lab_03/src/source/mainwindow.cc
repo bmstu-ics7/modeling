@@ -3,8 +3,6 @@
 #include "ui_mainwindow.h"
 #include "GraphicsBuilder.h"
 
-#include <QDebug>
-
 MainWindow::MainWindow(QWidget* parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -31,8 +29,9 @@ void MainWindow::click_calculate()
     double a0 = ui->lineEdit_a0->text().toDouble();
     double an = ui->lineEdit_an->text().toDouble();
     double F0 = ui->lineEdit_F0->text().toDouble();
+    bool ax3  = ui->checkBox_Alpha->isChecked();
 
-    Mathematics math(k0, kn, a0, an, F0);
+    Mathematics math(k0, kn, a0, an, F0, ax3);
     GraphicsBuilder builder(ui->chart);
 
     for (int i = 0; i < math.X.length(); ++i) {
@@ -40,6 +39,6 @@ void MainWindow::click_calculate()
     }
 
     builder.editLabel("Температура стержня");
-    builder.editAsixLabels("length", "temperature");
+    builder.editAsixLabels("Длина, см", "Температура, K");
     builder.setChart();
 }

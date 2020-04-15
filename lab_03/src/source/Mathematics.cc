@@ -1,7 +1,15 @@
 #include "Mathematics.h"
 
-Mathematics::Mathematics(const double k0, const double kn, const double a0, const double an, const double F0)
-    : _k0(k0), _kn(kn), _alpha0(a0), _alphaN(an), _F0(F0),
+Mathematics::Mathematics(
+    const double k0,
+    const double kn,
+    const double a0,
+    const double an,
+    const double F0,
+    const bool ax3
+)
+    : _multiAlpha(ax3 ? 3.0 : 1.0 ),
+    _k0(k0), _kn(kn), _alpha0(a0), _alphaN(an), _F0(F0),
     _a((_k0 * _kn * _l) / (_k0 - _kn)),
     _b((_kn * _l) / (_kn - _k0)),
     _c((_alpha0 * _alphaN * _l) / (_alpha0 - _alphaN)),
@@ -39,7 +47,7 @@ double Mathematics::k(const double x)
 
 double Mathematics::alpha(const double x)
 {
-    return _c / (x - _d);
+    return _multiAlpha * (_c / (x - _d));
 }
 
 double Mathematics::p(const double x)

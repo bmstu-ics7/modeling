@@ -6,7 +6,7 @@
 class Mathematics
 {
 public:
-    Mathematics(const double k0, const double kn, const double a0, const double an, const double F0);
+    Mathematics(const double k0, const double kn, const double a0, const double an, const double F0, const bool ax3);
 
 public:
     QVector<double> X;
@@ -28,6 +28,7 @@ private:
     void findResult();
 
 private:
+    const double _multiAlpha;
     const double _k0;
     const double _kn;
     const double _alpha0;
