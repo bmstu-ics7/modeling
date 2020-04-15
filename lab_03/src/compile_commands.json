@@ -1,0 +1,25 @@
+[
+{
+  "directory": "/Users/alex/Repositories/modeling/lab_03/src/build",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  -DQT_CHARTS_LIB -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I. -I../ -Ilab_03_autogen/include -I../include -iframework /usr/local/opt/qt5/lib -isystem /usr/local/opt/qt5/lib/QtWidgets.framework/Headers -isystem /usr/local/opt/qt5/lib/QtGui.framework/Headers -isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/OpenGL.framework/Headers -isystem /usr/local/opt/qt5/lib/QtCore.framework/Headers -isystem /usr/local/opt/qt5/./mkspecs/macx-clang -isystem /usr/local/opt/qt5/lib/QtCharts.framework/Headers   -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk   -fPIC -std=gnu++11 -o CMakeFiles/lab_03.dir/lab_03_autogen/mocs_compilation.cpp.o -c /Users/alex/Repositories/modeling/lab_03/src/build/lab_03_autogen/mocs_compilation.cpp",
+  "file": "/Users/alex/Repositories/modeling/lab_03/src/build/lab_03_autogen/mocs_compilation.cpp"
+},
+
+{
+  "directory": "/Users/alex/Repositories/modeling/lab_03/src/build",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  -DQT_CHARTS_LIB -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I. -I../ -Ilab_03_autogen/include -I../include -iframework /usr/local/opt/qt5/lib -isystem /usr/local/opt/qt5/lib/QtWidgets.framework/Headers -isystem /usr/local/opt/qt5/lib/QtGui.framework/Headers -isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/OpenGL.framework/Headers -isystem /usr/local/opt/qt5/lib/QtCore.framework/Headers -isystem /usr/local/opt/qt5/./mkspecs/macx-clang -isystem /usr/local/opt/qt5/lib/QtCharts.framework/Headers   -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk   -fPIC -std=gnu++11 -o CMakeFiles/lab_03.dir/source/main.cc.o -c /Users/alex/Repositories/modeling/lab_03/src/source/main.cc",
+  "file": "/Users/alex/Repositories/modeling/lab_03/src/source/main.cc"
+},
+
+{
+  "directory": "/Users/alex/Repositories/modeling/lab_03/src/build",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  -DQT_CHARTS_LIB -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I. -I../ -Ilab_03_autogen/include -I../include -iframework /usr/local/opt/qt5/lib -isystem /usr/local/opt/qt5/lib/QtWidgets.framework/Headers -isystem /usr/local/opt/qt5/lib/QtGui.framework/Headers -isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/OpenGL.framework/Headers -isystem /usr/local/opt/qt5/lib/QtCore.framework/Headers -isystem /usr/local/opt/qt5/./mkspecs/macx-clang -isystem /usr/local/opt/qt5/lib/QtCharts.framework/Headers   -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk   -fPIC -std=gnu++11 -o CMakeFiles/lab_03.dir/source/mainwindow.cc.o -c /Users/alex/Repositories/modeling/lab_03/src/source/mainwindow.cc",
+  "file": "/Users/alex/Repositories/modeling/lab_03/src/source/mainwindow.cc"
+},
+
+{
+  "directory": "/Users/alex/Repositories/modeling/lab_03/src/build",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  -DQT_CHARTS_LIB -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I. -I../ -Ilab_03_autogen/include -I../include -iframework /usr/local/opt/qt5/lib -isystem /usr/local/opt/qt5/lib/QtWidgets.framework/Headers -isystem /usr/local/opt/qt5/lib/QtGui.framework/Headers -isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/OpenGL.framework/Headers -isystem /usr/local/opt/qt5/lib/QtCore.framework/Headers -isystem /usr/local/opt/qt5/./mkspecs/macx-clang -isystem /usr/local/opt/qt5/lib/QtCharts.framework/Headers   -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk   -fPIC -std=gnu++11 -o CMakeFiles/lab_03.dir/source/GraphicsBuilder.cc.o -c /Users/alex/Repositories/modeling/lab_03/src/source/GraphicsBuilder.cc",
+  "file": "/Users/alex/Repositories/modeling/lab_03/src/source/GraphicsBuilder.cc"
+}
+]

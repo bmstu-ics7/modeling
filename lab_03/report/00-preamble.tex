@@ -1,0 +1,68 @@
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[english,russian]{babel}
+\usepackage{listings}
+
+\usepackage[table]{xcolor}
+
+\usepackage{amsmath}
+\usepackage{MnSymbol}
+\usepackage{wasysym}
+\usepackage{indentfirst}
+\usepackage[
+bookmarks=true, colorlinks=true, unicode=true,
+urlcolor=black,linkcolor=black, anchorcolor=black,
+citecolor=black, menucolor=black, filecolor=black,
+]{hyperref}
+\usepackage{nomencl}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.9}
+
+\usepackage{geometry}
+\geometry{top=15mm}
+\geometry{right=15mm}
+\geometry{left=15mm}
+\geometry{bottom=20mm}
+\geometry{ignorefoot}
+
+\usepackage{graphicx}
+
+\usepackage{float}
+
+\usepackage{multirow}
+
+\usepackage{setspace}
+\onehalfspacing
+
+\setlength{\parskip}{1ex} % разрыв между абзацами
+\usepackage{blindtext}
+
+\usepackage{titlesec, blindtext, color}
+
+\titleformat
+{\section} % command
+{\bfseries\Large} % format
+{}
+{-1cm}
+{
+    \centering
+}
+
+\titleformat
+{\subsection} % command
+{\bfseries\large} % format
+{}
+{-1cm}
+{
+}
+
+\titlespacing*{\section}{0cm}{0cm}{0cm}[0cm]
+
+\lstset{
+    language=haskell,
+    numbers=left,
+    texcl=true,
+    basicstyle=\small,
+    language=C++
+}
