@@ -1,0 +1,102 @@
+\textbf{Цель работы:} Получение навыков разработки алгоритмов решения смешанной краевой задачи при реализации моделей, построенных на квазиинейном уравнении параболического типа.
+
+\section{ИСХОДНЫЕ ДАННЫЕ}
+
+\subsection{Задана математическая модель}
+
+Уравнение для функции $T(x, t)$ (формула \ref{eq:main_t}).
+
+\begin{equation}\label{eq:main_t}
+    c(T) \frac{\partial T}{\partial t} = \frac{\partial}{\partial x} \bigg( k(T) \frac{\partial T}{\partial x} \bigg) - \frac{2}{R} \alpha(x) T + \frac{2T_0}{R} \alpha(x)
+\end{equation}
+
+Краевые условия
+
+\begin{equation*}
+    \begin{cases}
+        t = 0, T(x, 0) = T_0 \\
+        x = 0, -k \big( T(0) \big) \frac{\partial T}{\partial x} = F_0 \\
+        x = l, -k \big( T(l) \big) \frac{\partial T}{\partial x} = \alpha_N \big( T(l) - T_0 \big) \\
+    \end{cases}
+\end{equation*}
+
+\subsection{Разностная схема}
+
+Систему квазилинейных растностных уравнений видно на формуле \ref{eq:system_diff}.
+
+\begin{equation}\label{eq:system_diff}
+    \begin{cases}
+        \LittleCap{K}_0 \LittleCap{y}_0 + \LittleCap{M}_0 \LittleCap{y}_1 = \LittleCap{P}_0 \\
+        \LittleCap{A}_n \LittleCap{y}_{n-1} - \LittleCap{B}_n \LittleCap{y}_n + \LittleCap{D}_n \LittleCap{y}_{n+1} = - \LittleCap{F}_n,\ \ 1 \le n \le N - 1 \\
+        \LittleCap{K}_N \LittleCap{y}_N + \LittleCap{M}_{N-1} \LittleCap{y}_{N-1} = \LittleCap{P}_N \\
+    \end{cases}
+\end{equation}
+
+Разностный аналог краевого условия при $x=0$
+
+\begin{multline}\label{eq:diff_x0}
+    \bigg( \frac{h}{8} \LittleCap{c}_\frac{1}{2} +\ \frac{h}{4} \LittleCap{c}_0 + \LittleCap{\chi}_\frac{1}{2} \frac{\tau}{h} + \frac{\tau h}{8} p_\frac{1}{2} + \frac{\tau h}{4} p_0 \bigg) \LittleCap{y}_0 + \bigg( \frac{h}{8} \LittleCap{c}_\frac{1}{2} - \LittleCap{\chi}_\frac{1}{2} \frac{\tau}{h} + \frac{\tau h}{8} p_\frac{1}{2} \bigg) \LittleCap{y}_1 = \\
+    = \frac{h}{8} \LittleCap{c}_\frac{1}{2} \big( y_0 + y_1 \big) + \frac{h}{4} \LittleCap{c}_0 y_0 + \LittleCap{F}\tau + \frac{\tau h}{4} \big(\LittleCap{f}_\frac{1}{2} + \LittleCap{f}_0 \big)
+\end{multline}
+
+Получим разностный аналог краевого условия $x=l$. Проинтегрируем уравнение \ref{eq:main_t} на отрезке $[x_{N-\frac{1}{2}}, x_N]$ и на временном интервале $[t_m, t_{m+1}]$.
+
+\begin{multline*}
+    \int_{x_{N-\frac{1}{2}}}^{x_N} dx \int_{t_m}^{t_{m+1}} c(u) \frac{\partial u}{\partial t} dt = - \int_{t_m}^{t_{m+1}} dt \int_{x_{N-\frac{1}{2}}}^{x_N} \frac{\partial F}{\partial x} dx - \\
+    - \int_{x_{N-\frac{1}{2}}}^{x_N} dx \int_{t_m}^{t_{m+1}} p(x) u dt + \int_{x_{N-\frac{1}{2}}}^{x_N} dx \int_{t_m}^{t_{m+1}} f(u) dt
+\end{multline*}
+
+\begin{equation*}
+    \int_{x_{N-\frac{1}{2}}}^{x_N} \LittleCap{c} (\LittleCap{u} -\ u) dx = - \int_{t_m}^{t_{m+1}} \big( F_N - F_{N - \frac{1}{2}} \big) dt - \int_{x_{N-\frac{1}{2}}}^{x_N} p \LittleCap{u} \tau dx + \int_{x_{N - \frac{1}{2}}}^{x_N} \LittleCap{f} \tau dx
+\end{equation*}
+
+\begin{multline*}
+    \frac{h}{4} \big[ \LittleCap{c}_N \big( \LittleCap{y}_N -\ y_N \big) + \LittleCap{c}_{N-\frac{1}{2}} \big( \LittleCap{y}_{N-\frac{1}{2}} -\ y_{N-\frac{1}{2}} \big) \big] = - \big( \LittleCap{F}_N - \LittleCap{F}_{N-\frac{1}{2}} \big) \tau - \\
+    - \big( p_N \LittleCap{y}_N +\ p_{N-\frac{1}{2}} \LittleCap{y}_{N-\frac{1}{2}} \big) \tau \frac{h}{4} + \big( \LittleCap{f}_N + \LittleCap{f}_{N-\frac{1}{2}} \big) \tau \frac{h}{4}
+\end{multline*}
+
+Подставим \ref{eq:cap_y_1_2}, \ref{eq:y_1_2}, \ref{eq:F_N} и \ref{eq:F_N-1_2}.
+
+\begin{equation}\label{eq:cap_y_1_2}
+    \LittleCap{y}_{N-\frac{1}{2}} = \frac{\LittleCap{y}_{N-1} + \LittleCap{y}_N}{2}
+\end{equation}
+
+\begin{equation}\label{eq:y_1_2}
+    y_{N-\frac{1}{2}} = \frac{y_{N-1} + y_N}{2}
+\end{equation}
+
+\begin{equation}\label{eq:F_N}
+    \LittleCap{F}_N = \alpha_N \big( \LittleCap{y}_N - T_0 \big)
+\end{equation}
+
+\begin{equation}\label{eq:F_N-1_2}
+    \LittleCap{F}_{N-\frac{1}{2}} = \LittleCap{\chi}_{N-\frac{1}{2}} \frac{\LittleCap{y}_{N-1} - \LittleCap{y}_N}{h}
+\end{equation}
+
+Получим
+
+\begin{multline}\label{eq:diff_xl}
+    \LittleCap{y}_N \bigg( \frac{h}{4} \LittleCap{c}_N +\ \frac{h}{8} \LittleCap{c}_{N-\frac{1}{2}} + \alpha_N \tau + \LittleCap{\chi}_{N-\frac{1}{2}} \frac{\tau}{h} + p_N \frac{\tau h}{4} + p_{N-\frac{1}{2}} \frac{\tau h}{8} \bigg) + \\
+    + \LittleCap{y}_{N-1} \bigg( \frac{h}{8} \LittleCap{c}_{N-\frac{1}{2}} - \LittleCap{\chi}_{N-\frac{1}{2}} \frac{\tau}{h} + p_{N-\frac{1}{2}} \frac{\tau h}{8} \bigg) = \\
+    = \frac{h}{4} \LittleCap{c}_N y_N + \frac{h}{8} \LittleCap{c}_{N-\frac{1}{2}} y_{N-1} + \frac{h}{8} \LittleCap{c}_{N-\frac{1}{2}} y_N + T_0 \alpha_N \tau + \big( \LittleCap{f}_N + \LittleCap{f}_{N-\frac{1}{2}} \big) \frac{\tau h}{4}
+\end{multline}
+
+С помощью формул \ref{eq:system_diff} и \ref{eq:diff_x0} получим коэффициенты $\LittleCap{K}_0, \LittleCap{M}_0, \LittleCap{P}_0$, а с помощью \ref{eq:system_diff} и \ref{eq:diff_xl} -- $\LittleCap{K}_N, \LittleCap{M}_{N-1}, \LittleCap{P}_N$.
+
+Значения параметров для отладки
+
+\begin{equation*}
+    \begin{matrix*}[l]
+        k(T) = a_1(b_1 + c_1 T^{m_1}), \frac{\text{Вт}}{\text{см К}}, \\
+        c(T) = a_2 + b_2 T^{m_2} - \frac{c_2}{T^2}, \frac{\text{Дж}}{\text{см}^3 \text{К}}, \\
+        a_1 = 0.0134,\ b_1 = 1,\ c_1 = 4.35 \cdot 10^{-4},\ m_1=1, \\
+        a_2 = 2.049,\ b_2 = 0.563 \cdot 10^{-3},\ c_2 = 0.528 \cdot 10^5,\ m_2 = 1 \\
+        \alpha(x) = \frac{c}{x-d}, \\
+        \alpha_0 = 0.05\ \frac{\text{Вт}}{\text{см}^2 \text{К}}, \\
+        \alpha_N = 0.01\ \frac{\text{Вт}}{\text{см}^2 \text{К}}, \\
+        l = 10\ \text{см}, \\
+        T_0 = 300\ \text{К}, \\
+        R = 0.5\ \text{см} \\
+        F(t) = 50 \frac{\text{Вт}}{\text{см}^2}.
+    \end{matrix*}
+\end{equation*}
