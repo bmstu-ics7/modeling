@@ -34,7 +34,7 @@ private:
     double f1_2(const double x, const double h);
     void iterations();
     bool endIterations();
-    QVector<double> runTrought();
+    QVector<double> runTrought(const QVector<double> &prev);
     bool endRunTrought(
         const QVector<double> &prev,
         const QVector<double> &current

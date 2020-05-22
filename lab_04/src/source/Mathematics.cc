@@ -98,7 +98,7 @@ void Mathematics::iterations()
 
         do {
             prev = curr;
-            curr = runTrought();
+            curr = runTrought(prev);
             qDebug() << temp.count();
         } while (!endRunTrought(prev, curr));
 
@@ -106,10 +106,8 @@ void Mathematics::iterations()
     } while (!endIterations());
 }
 
-QVector<double> Mathematics::runTrought()
+QVector<double> Mathematics::runTrought(const QVector<double> &prev)
 {
-    const QVector<double> &prev = temp.last();
-
     const double K0 = _h / 8.0 * c1_2(prev[0], _tau) +
         _h / 4.0 * c(prev[0]) + chi1_2(prev[0], _tau) *
         _tau / _h + _tau * _h / 8.0 * p1_2(0, _h) +
