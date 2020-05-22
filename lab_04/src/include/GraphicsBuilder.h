@@ -11,14 +11,16 @@ class GraphicsBuilder
 {
 public:
     GraphicsBuilder(QChartView *view);
+    void addGraph();
     void addPoint(double x, double y);
     void editLabel(QString label);
     void editAsixLabels(QString x, QString y);
     void setChart();
+
 private:
     QChart *_chart;
     QChartView *_view;
-    QSplineSeries *_series;
+    QVector<QSplineSeries *> _series;
     QChart::ChartTheme chartTheme = QChart::ChartThemeDark;
 };
 

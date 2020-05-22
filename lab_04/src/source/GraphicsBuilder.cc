@@ -5,16 +5,20 @@ GraphicsBuilder::GraphicsBuilder(QChartView *view)
 {
     _chart = new QChart();
     _chart->setTheme(chartTheme);
-    _series = nullptr;
+}
+
+void GraphicsBuilder::addGraph()
+{
+    _series.append(new QSplineSeries());
 }
 
 void GraphicsBuilder::addPoint(double x, double y)
 {
-    if (_series == nullptr) {
-        _series = new QSplineSeries();
+    if (_series.count() == 0) {
+        _series.append(new QSplineSeries());
     }
 
-    _series->append(x, y);
+    _series.last()->append(x, y);
 }
 
 void GraphicsBuilder::editLabel(QString label)
@@ -24,19 +28,19 @@ void GraphicsBuilder::editLabel(QString label)
 
 void GraphicsBuilder::editAsixLabels(QString x, QString y)
 {
-    _chart->addSeries(_series);
+    _chart->addSeries(_series.last());
 
     QValueAxis *axisX = new QValueAxis();
     axisX->setLabelFormat("%.3f");
     axisX->setTitleText(x);
     _chart->addAxis(axisX, Qt::AlignBottom);
-    _series->attachAxis(axisX);
+    _series.last()->attachAxis(axisX);
 
     QValueAxis *axisY = new QValueAxis();
     axisY->setLabelFormat("%.3f");
     axisY->setTitleText(y);
     _chart->addAxis(axisY, Qt::AlignLeft);
-    _series->attachAxis(axisY);
+    _series.last()->attachAxis(axisY);
 }
 
 void GraphicsBuilder::setChart()
