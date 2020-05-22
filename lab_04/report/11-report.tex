@@ -20,6 +20,22 @@
     \end{cases}
 \end{equation*}
 
+Функция $\alpha (x)$
+
+\begin{equation*}
+    \alpha(x) = \frac{c}{x-d}
+\end{equation*}
+
+, где
+
+\begin{equation*}
+    c = -\alpha_0 d = \frac{\alpha_0 \alpha_N l}{\alpha_0 - \alpha_N}
+\end{equation*}
+
+\begin{equation*}
+    d = \frac{\alpha_N l}{\alpha_N - \alpha_0}
+\end{equation*}
+
 \subsection{Разностная схема}
 
 Систему квазилинейных растностных уравнений видно на формуле \ref{eq:system_diff}.
@@ -31,6 +47,27 @@
         \LittleCap{K}_N \LittleCap{y}_N + \LittleCap{M}_{N-1} \LittleCap{y}_{N-1} = \LittleCap{P}_N \\
     \end{cases}
 \end{equation}
+
+\begin{equation*}
+    \begin{matrix*}[l]
+        \LittleCap{A}_n = \LittleCap{\chi}_{n-\frac{1}{2}} \frac{\tau}{h} \\
+        \LittleCap{B}_n = \LittleCap{A}_n + \LittleCap{D}_n + \LittleCap{c}_n h + p_n h \tau \\
+        \LittleCap{D}_n = \LittleCap{\chi}_{n + \frac{1}{2}} \frac{\tau}{h} \\
+        \LittleCap{F}_n = f_n h \tau + \LittleCap{c}_n y_n h \\
+    \end{matrix*}
+\end{equation*}
+
+\subsection{Краевые условия}
+
+Обозначим:
+
+\begin{equation*}
+    \begin{matrix*}[l]
+        F = - k(T) \frac{\partial T}{\partial x} \\
+        p(x) = \frac{2}{R} \alpha(x) \\
+        f(x) = \frac{2T_0}{R} \alpha(x) \\
+    \end{matrix*}
+\end{equation*}
 
 Разностный аналог краевого условия при $x=0$
 
@@ -83,7 +120,21 @@
 
 С помощью формул \ref{eq:system_diff} и \ref{eq:diff_x0} получим коэффициенты $\LittleCap{K}_0, \LittleCap{M}_0, \LittleCap{P}_0$, а с помощью \ref{eq:system_diff} и \ref{eq:diff_xl} -- $\LittleCap{K}_N, \LittleCap{M}_{N-1}, \LittleCap{P}_N$.
 
-Значения параметров для отладки
+\subsection{Метод простых итераций}
+
+Для решения системы \ref{eq:system_diff} используется метод простых итераций. Обозначим текущую итерацию за $s$, тогда предыдущая -- $s - 1$. С данными обозначениями итерационный процесс организуется следующим образом
+
+\begin{equation*}
+    A_n^{s-1} y_{n+1}^s - B_{n}^{s-1} y_n^s + D_n^{s-1} y_{n-1}^s = -F_n^{s-1}
+\end{equation*}
+
+Решение данной схемы осуществляется методом прогонки. Итерации прекращаются при условии
+
+\begin{equation*}
+    \max \bigg| \frac{y_n^s - y_n^{s-1}}{y_n^s} \bigg| \le \varepsilon, n = \overline{0;N}
+\end{equation*}
+
+\subsection{Значения параметров для отладки}
 
 \begin{equation*}
     \begin{matrix*}[l]
@@ -100,3 +151,5 @@
         F(t) = 50 \frac{\text{Вт}}{\text{см}^2}.
     \end{matrix*}
 \end{equation*}
+
+\section{ЛИСТИНГИ}
