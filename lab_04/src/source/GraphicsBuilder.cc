@@ -23,24 +23,26 @@ void GraphicsBuilder::addPoint(double x, double y)
 
 void GraphicsBuilder::editLabel(QString label)
 {
-    _chart->setTitle(label);
+    _series.last()->setName(label);
 }
 
 void GraphicsBuilder::editAsixLabels(QString x, QString y)
 {
-    _chart->addSeries(_series.last());
-
     QValueAxis *axisX = new QValueAxis();
     axisX->setLabelFormat("%.3f");
     axisX->setTitleText(x);
     _chart->addAxis(axisX, Qt::AlignBottom);
-    _series.last()->attachAxis(axisX);
 
     QValueAxis *axisY = new QValueAxis();
     axisY->setLabelFormat("%.3f");
     axisY->setTitleText(y);
     _chart->addAxis(axisY, Qt::AlignLeft);
-    _series.last()->attachAxis(axisY);
+
+    for (int i = 0; i < _series.count(); ++i) {
+        _chart->addSeries(_series[i]);
+        _series[i]->attachAxis(axisY);
+        _series[i]->attachAxis(axisX);
+    }
 }
 
 void GraphicsBuilder::setChart()

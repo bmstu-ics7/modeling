@@ -99,7 +99,6 @@ void Mathematics::iterations()
         do {
             prev = curr;
             curr = runTrought(prev);
-            qDebug() << temp.count();
         } while (!endRunTrought(prev, curr));
 
         temp.append(curr);
@@ -129,9 +128,9 @@ QVector<double> Mathematics::runTrought(const QVector<double> &prev)
     const double MN = _h / 8.0 * c1_2(prev.last(), -_tau) -
         chi1_2(prev.last(), -_tau) * _tau / _h +
         p1_2(_l, -_h) * _tau * _h / 8.0;
-    const double PN = _h / 4.0 * c(_l) * prev.last() +
-        _h / 8.0 * c1_2(_l, -_h) * prev[prev.count() - 2] +
-        _h / 8.0 * c1_2(_l, -_h) * prev.last() +
+    const double PN = _h / 4.0 * c(prev.last()) * prev.last() +
+        _h / 8.0 * c1_2(prev.last(), -_tau) * prev[prev.count() - 2] +
+        _h / 8.0 * c1_2(prev.last(), -_tau) * prev.last() +
         _T0 * _alphaN * _tau +
         (f(_l) + f1_2(_l, -_h)) * _tau * _h / 4.0;
 
@@ -146,13 +145,13 @@ QVector<double> Mathematics::runTrought(const QVector<double> &prev)
         double etaN = eta.last();
         eps.append(D(prev.last()) / (B(prev.last(), x) - A(prev.last()) * epsN));
         eta.append((F(prev.last(), x) + A(prev.last()) * etaN) /
-            (B(prev.last(), x) - A(prev.last() * epsN)));
+            (B(prev.last(), x) - A(prev.last()) * epsN));
     }
 
     QVector<double> t(eps.count());
     t[t.count() - 1] = (PN - MN * eta.last()) / (KN + MN * eps.last());
 
-    for (int i = eps.count() - 2; i >= 0; --i) {
+    for (int i = t.count() - 2; i >= 0; --i) {
         t[i] = eps[i + 1] * t[i + 1] + eta[i + 1];
     }
 
@@ -163,8 +162,7 @@ bool Mathematics::endIterations()
 {
     int last = temp.count() - 1;
     for (int i = 0; i < temp[last].count(); ++i) {
-        qDebug() << std::fabs(temp[last][i] - temp[last - 1][i] / temp[last][i]);
-        if (std::fabs(temp[last][i] - temp[last - 1][i] / temp[last][i]) > _eps)
+        if (std::fabs((temp[last][i] - temp[last - 1][i]) / temp[last][i]) > _eps)
             return false;
     }
 
@@ -185,5 +183,5 @@ bool Mathematics::endRunTrought(
             max = e;
     }
 
-    return max <= 1;
+    return max < 1;
 }

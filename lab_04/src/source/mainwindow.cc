@@ -45,12 +45,13 @@ void MainWindow::click_calculate()
     Mathematics math(a1, b1, c1, m1, a2, b2, c2, m2, alpha0, alphaN, l, T0, R, Ft);
     GraphicsBuilder builder(ui->chart_Xn);
 
-    for (int i = 0; i < math.temp.count(); i += 100) {
+    for (int i = 0; i < math.temp.count(); i += 1) {
         builder.addGraph();
-        for (int j = 0, x = 0; j < math.temp[i].count(); ++j, x += math._h) {
+        double x = 0;
+        for (int j = 0; j < math.temp[i].count(); ++j, x += math._h) {
             builder.addPoint(x, math.temp[i][j]);
         }
-        builder.editLabel(QString(i));
+        builder.editLabel(QString::number(i + 1));
     }
 
     builder.editAsixLabels("Длина, см", "Температура, K");
