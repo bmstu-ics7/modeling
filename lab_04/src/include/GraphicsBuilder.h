@@ -20,7 +20,7 @@ public:
 private:
     QChart *_chart;
     QChartView *_view;
-    QVector<QSplineSeries *> _series;
+    QVector<QLineSeries *> _series;
     QChart::ChartTheme chartTheme = QChart::ChartThemeDark;
 };
 

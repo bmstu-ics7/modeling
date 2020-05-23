@@ -17,6 +17,7 @@ Mathematics::Mathematics(
 
     if (_again) {
         _Ft = 0;
+        _secondRun = true;
         iterations();
     }
 }
@@ -90,17 +91,19 @@ double Mathematics::f1_2(const double x, const double h)
 
 void Mathematics::iterations()
 {
-    QVector<double> tZero;
-    int n = int(_l / _h) + 1;
-    for (int i = 0; i < n; ++i) {
-        if (_anotherStart) {
-            tZero.append(1000);
-        } else {
-            tZero.append(_T0);
+    if (!_secondRun) {
+        QVector<double> tZero;
+        int n = int(_l / _h) + 1;
+        for (int i = 0; i < n; ++i) {
+            if (_anotherStart) {
+                tZero.append(1000);
+            } else {
+                tZero.append(_T0);
+            }
         }
-    }
 
-    temp.append(tZero);
+        temp.append(tZero);
+    }
 
     do {
         QVector<double> prev;

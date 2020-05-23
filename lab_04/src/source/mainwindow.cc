@@ -38,7 +38,7 @@ void MainWindow::click_calculate()
 
     GraphicsBuilder builderXn(ui->chart_Xn);
 
-    for (int i = 0; i < math.temp.count(); i += 1) {
+    for (int i = 0; i < math.temp.count(); i += math.temp.count() < 10 ? 1 : math.temp.count() / 10) {
         builderXn.addGraph();
         double x = 0;
         for (int j = 0; j < math.temp[i].count(); ++j, x += math._h) {
@@ -53,7 +53,7 @@ void MainWindow::click_calculate()
     GraphicsBuilder builderTm(ui->chart_Tm);
 
     double x = 0;
-    for (int i = 0; i < math.temp[0].count(); i += 1, x += math._h) {
+    for (int i = 0; i < math.temp[0].count() - 1; i += 10, x += 10 * math._h) {
         builderTm.addGraph();
         for (int j = 0; j < math.temp.count(); ++j) {
             builderTm.addPoint(j, math.temp[j][i]);

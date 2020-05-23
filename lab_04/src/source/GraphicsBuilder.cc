@@ -5,17 +5,18 @@ GraphicsBuilder::GraphicsBuilder(QChartView *view)
 {
     _chart = new QChart();
     _chart->setTheme(chartTheme);
+    _chart->legend()->setVisible(false);
 }
 
 void GraphicsBuilder::addGraph()
 {
-    _series.append(new QSplineSeries());
+    _series.append(new QLineSeries());
 }
 
 void GraphicsBuilder::addPoint(double x, double y)
 {
     if (_series.count() == 0) {
-        _series.append(new QSplineSeries());
+        _series.append(new QLineSeries());
     }
 
     _series.last()->append(x, y);

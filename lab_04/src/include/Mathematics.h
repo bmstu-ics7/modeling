@@ -61,6 +61,7 @@ private:
 
     const bool _again;
     const bool _anotherStart;
+    bool _secondRun = false;
 };
 
 #endif // __MATHEMATICS_H
