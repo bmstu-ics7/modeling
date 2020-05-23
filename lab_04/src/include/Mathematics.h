@@ -7,11 +7,11 @@ class Mathematics
 {
 public:
     Mathematics(
-        const double a1, const double b1, const double c1, const double m1,
-        const double a2, const double b2, const double c2, const double m2,
         const double alpha0, const double alphaN, const double l,
-        const double T0, const double R, const double Ft
+        const double T0, const double R, const double Ft,
+        const bool again, const bool another
     );
+    void iterations();
 
 public:
     QVector<QVector<double>> temp;
@@ -32,7 +32,6 @@ private:
     double c1_2(const double T, const double tau);
     double p1_2(const double x, const double h);
     double f1_2(const double x, const double h);
-    void iterations();
     bool endIterations();
     QVector<double> runTrought(const QVector<double> &prev);
     bool endRunTrought(
@@ -41,24 +40,27 @@ private:
     );
 
 private:
-    const double _eps = 1e-2;
+    const double _eps = 1e-4;
 
-    const double _a1;
-    const double _b1;
-    const double _c1;
-    const double _m1;
+    const double _a1 = 0.0134;
+    const double _b1 = 1;
+    const double _c1 = 0.000435;
+    const double _m1 = 1;
 
-    const double _a2;
-    const double _b2;
-    const double _c2;
-    const double _m2;
+    const double _a2 = 2.049;
+    const double _b2 = 0.000563;
+    const double _c2 = 52800;
+    const double _m2 = 1;
 
     const double _alpha0;
     const double _alphaN;
     const double _l;
     const double _T0;
     const double _R;
-    const double _Ft;
+    double _Ft;
+
+    const bool _again;
+    const bool _anotherStart;
 };
 
 #endif // __MATHEMATICS_H

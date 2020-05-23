@@ -1,18 +1,24 @@
 #include "Mathematics.h"
 #include <cmath>
-#include <QDebug>
 
 Mathematics::Mathematics(
-    const double a1, const double b1, const double c1, const double m1,
-    const double a2, const double b2, const double c2, const double m2,
     const double alpha0, const double alphaN, const double l,
-    const double T0, const double R, const double Ft
-) : _a1(a1), _b1(b1), _c1(c1), _m1(m1),
-    _a2(a2), _b2(b2), _c2(c2), _m2(m2),
-    _alpha0(alpha0), _alphaN(alphaN), _l(l),
-    _T0(T0), _R(R), _Ft(Ft)
+    const double T0, const double R, const double Ft,
+    const bool again, const bool another
+) : _alpha0(alpha0), _alphaN(alphaN), _l(l),
+    _T0(T0), _R(R), _Ft(Ft),
+    _again(again), _anotherStart(another)
 {
+    if (_anotherStart) {
+        _Ft = 0;
+    }
+
     iterations();
+
+    if (_again) {
+        _Ft = 0;
+        iterations();
+    }
 }
 
 double Mathematics::alpha(const double x)
@@ -87,7 +93,11 @@ void Mathematics::iterations()
     QVector<double> tZero;
     int n = int(_l / _h) + 1;
     for (int i = 0; i < n; ++i) {
-        tZero.append(_T0);
+        if (_anotherStart) {
+            tZero.append(1000);
+        } else {
+            tZero.append(_T0);
+        }
     }
 
     temp.append(tZero);
@@ -140,12 +150,13 @@ QVector<double> Mathematics::runTrought(const QVector<double> &prev)
     QVector<double> eta;
     eta.append(P0 / K0);
 
-    for (double x = _h; x + _h < _l; x += _h) {
+    int n = 1;
+    for (double x = _h; x + _h < _l; x += _h, n += 1) {
         double epsN = eps.last();
         double etaN = eta.last();
-        eps.append(D(prev.last()) / (B(prev.last(), x) - A(prev.last()) * epsN));
-        eta.append((F(prev.last(), x) + A(prev.last()) * etaN) /
-            (B(prev.last(), x) - A(prev.last()) * epsN));
+        eps.append(D(prev[n]) / (B(prev[n], x) - A(prev[n]) * epsN));
+        eta.append((F(prev[n], x) + A(prev[n]) * etaN) /
+            (B(prev[n], x) - A(prev[n]) * epsN));
     }
 
     QVector<double> t(eps.count());
