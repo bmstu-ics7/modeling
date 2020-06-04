@@ -53,6 +53,26 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="tab_5">
+       <attribute name="title">
+        <string>T(x_n, t)</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <widget class="QChartView" name="chart_Xn">
+          <property name="backgroundBrush">
+           <brush brushstyle="NoBrush">
+            <color alpha="255">
+             <red>22</red>
+             <green>22</green>
+             <blue>22</blue>
+            </color>
+           </brush>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
         <string>T(0, t) для разных значений a, b</string>
@@ -296,6 +316,16 @@
         <widget class="QCheckBox" name="checkBox_Tau">
          <property name="text">
           <string>Посчитать таблицу τ</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="checkBox_Xn">
+         <property name="text">
+          <string>График T(x_n, t)</string>
          </property>
          <property name="checked">
           <bool>true</bool>

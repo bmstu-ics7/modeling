@@ -5,7 +5,7 @@ Mathematics::Mathematics(
     const double alpha0, const double alphaN, const double l,
     const double T0, const double R, const double Fmax, const double Tmax,
     const double nu, const double tu,
-    const bool needX, const bool needTau,
+    const bool needX, const bool needTau, const bool needXn,
     const bool needC, const bool needImpulse
 ) : _alpha0(alpha0), _alphaN(alphaN), _l(l),
     _T0(T0), _R(R), _Fmax(Fmax), _Tmax(Tmax),
@@ -55,6 +55,16 @@ Mathematics::Mathematics(
 
             testTau.append(row);
         }
+    }
+
+    if (needXn) {
+        _epsRun = 1e-2;
+        _epsIt = 1e-6;
+        _h = 0.01;
+        _tau = _Tmax / 1000.0;
+        _onlyFirst = false;
+        iterations();
+        testXn = temp;
     }
 
     if (needC) {

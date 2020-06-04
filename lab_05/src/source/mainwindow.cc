@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget* parent) :
 
     GraphicsBuilder(ui->chart_AB).setChart();
     GraphicsBuilder(ui->chart_Impulse).setChart();
+    GraphicsBuilder(ui->chart_Xn).setChart();
 }
 
 MainWindow::~MainWindow()
@@ -36,13 +37,14 @@ void MainWindow::click_calculate()
     double tu         = ui->lineEdit_tu->text().toDouble();
     bool needX        = ui->checkBox_X->isChecked();
     bool needTau      = ui->checkBox_Tau->isChecked();
+    bool needXn       = ui->checkBox_Xn->isChecked();
     bool needC        = ui->checkBox_C->isChecked();
     bool needImpulse  = ui->checkBox_Impulse->isChecked();
 
     Mathematics math(
         alpha0, alphaN,
         l, T0, R, Fmax, Tmax, nu, tu,
-        needX, needTau, needC, needImpulse
+        needX, needTau, needXn, needC, needImpulse
     );
 
     if (needC) {
@@ -75,6 +77,23 @@ void MainWindow::click_calculate()
         builderImpulse.editLabel("empty");
         builderImpulse.editAsixLabels("Время, сек", "Температура, K");
         builderImpulse.setChart();
+    }
+
+    if (needXn) {
+        GraphicsBuilder builderXn(ui->chart_Xn);
+
+        double x = 0;
+        for (int i = 0; i < math.temp[0].count() - 1; i += 10, x += 10 * math._h) {
+            builderXn.addGraph();
+            double t = 0;
+            for (int j = 0; j < math.temp.count(); ++j, t += math._tau) {
+                builderXn.addPoint(t, math.temp[j][i]);
+            }
+            builderXn.editLabel(QString::number(x));
+        }
+
+        builderXn.editAsixLabels("Время, сек", "Температура, K");
+        builderXn.setChart();
     }
 
     if (needX) {

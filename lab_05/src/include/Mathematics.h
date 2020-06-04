@@ -10,7 +10,7 @@ public:
         const double alpha0, const double alphaN, const double l,
         const double T0, const double R, const double Fmax, const double Tmax,
         const double nu, const double tu,
-        const bool needX, const bool needTau,
+        const bool needX, const bool needTau, const bool needXn,
         const bool needC, const bool needImpulse
     );
     void iterations();
@@ -24,6 +24,7 @@ public:
     QVector<QVector<double>> testH;
     QVector<QVector<double>> testTau;
 
+    QVector<QVector<double>> testXn;
     QVector<QVector<double>> testAB;
     QVector<double> testImpulse;
 
