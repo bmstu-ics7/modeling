@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1.0)
 
-set(PROJECT lab_04)
+set(PROJECT lab_05)
 
 project(${PROJECT})
 

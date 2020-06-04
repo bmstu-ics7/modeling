@@ -18,104 +18,81 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="4" column="0">
-     <spacer name="verticalSpacer">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>40</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="0" column="1" rowspan="5">
-     <widget class="QTabWidget" name="tabWidget">
-      <property name="currentIndex">
-       <number>0</number>
-      </property>
-      <widget class="QWidget" name="tab">
-       <attribute name="title">
-        <string>T(x, t_m)</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_4">
-        <item row="0" column="0">
-         <widget class="QChartView" name="chart_Xn">
-          <property name="backgroundBrush">
-           <brush brushstyle="NoBrush">
-            <color alpha="255">
-             <red>22</red>
-             <green>22</green>
-             <blue>22</blue>
-            </color>
-           </brush>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="tab_2">
-       <attribute name="title">
-        <string>T(x_n,t)</string>
-       </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout">
-        <item>
-         <widget class="QChartView" name="chart_Tm">
-          <property name="backgroundBrush">
-           <brush brushstyle="NoBrush">
-            <color alpha="255">
-             <red>22</red>
-             <green>22</green>
-             <blue>22</blue>
-            </color>
-           </brush>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </widget>
-    </item>
-    <item row="2" column="0">
-     <widget class="QGroupBox" name="groupBox_2">
-      <property name="styleSheet">
-       <string notr="true">QGroupBox::title {
-	subcontrol-position: top center;
-	margin-bottom: -20px;
-}</string>
-      </property>
-      <property name="title">
-       <string>Extra settings</string>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
-       <item>
-        <widget class="QCheckBox" name="checkBox_AgainWithFt">
-         <property name="text">
-          <string>После окончания
-обнулить F(t) и 
-посчитать дальше</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="checkBox_AnotherStart">
-         <property name="text">
-          <string>Задать начальную
-температуру 1000 К
-и обнулить F(t)</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
     <item row="3" column="0">
      <widget class="QPushButton" name="button_Calculate">
       <property name="text">
        <string>Calculate</string>
       </property>
+     </widget>
+    </item>
+    <item row="0" column="1" rowspan="5">
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="tabShape">
+       <enum>QTabWidget::Rounded</enum>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab_3">
+       <attribute name="title">
+        <string>Таблица для шага по длине</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QTableView" name="tableView_x"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_4">
+       <attribute name="title">
+        <string>Таблица для шага по времени</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QTableView" name="tableView_t"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="title">
+        <string>T(0, t) для разных значений a, b</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QChartView" name="chart_AB">
+          <property name="backgroundBrush">
+           <brush brushstyle="NoBrush">
+            <color alpha="255">
+             <red>22</red>
+             <green>22</green>
+             <blue>22</blue>
+            </color>
+           </brush>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>T(0, t) для импульса</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="0" column="0">
+         <widget class="QChartView" name="chart_Impulse">
+          <property name="backgroundBrush">
+           <brush brushstyle="NoBrush">
+            <color alpha="255">
+             <red>22</red>
+             <green>22</green>
+             <blue>22</blue>
+            </color>
+           </brush>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
     <item row="0" column="0" rowspan="2">
@@ -143,52 +120,17 @@
        <string>Input values</string>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_9">
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;α&lt;/span&gt;&lt;span style=&quot; font-style:italic; vertical-align:sub;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
-       </item>
        <item row="5" column="0">
-        <widget class="QLabel" name="label_14">
+        <widget class="QLabel" name="label_3">
          <property name="text">
-          <string>&lt;i&gt;F(t)&lt;/i&gt;</string>
+          <string>&lt;i&gt;F&lt;sub&gt;max&lt;/sub&gt;&lt;/i&gt;</string>
          </property>
         </widget>
        </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="label_13">
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_12">
          <property name="text">
-          <string>&lt;i&gt;R&lt;/i&gt;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QLineEdit" name="lineEdit_T0">
-         <property name="text">
-          <string>300</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QLineEdit" name="lineEdit_alphaN">
-         <property name="text">
-          <string>0.01</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLineEdit" name="lineEdit_alpha0">
-         <property name="text">
-          <string>0.05</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_10">
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;α&lt;/span&gt;&lt;span style=&quot; font-style:italic; vertical-align:sub;&quot;&gt;N&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;T&lt;/span&gt;&lt;span style=&quot; font-style:italic; vertical-align:sub;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </item>
@@ -199,31 +141,184 @@
          </property>
         </widget>
        </item>
-       <item row="5" column="1">
-        <widget class="QLineEdit" name="lineEdit_Ft">
+       <item row="7" column="0">
+        <widget class="QLabel" name="label">
          <property name="text">
-          <string>50</string>
+          <string>&lt;i&gt;ν&lt;/i&gt;</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="1">
-        <widget class="QLineEdit" name="lineEdit_l">
+       <item row="8" column="0">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>&lt;i&gt;t&lt;sub&gt;u&lt;/sub&gt;&lt;/i&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_13">
+         <property name="text">
+          <string>&lt;i&gt;R&lt;/i&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_10">
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;α&lt;/span&gt;&lt;span style=&quot; font-style:italic; vertical-align:sub;&quot;&gt;N&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_9">
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;α&lt;/span&gt;&lt;span style=&quot; font-style:italic; vertical-align:sub;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="1">
+        <widget class="QLineEdit" name="lineEdit_nu">
+         <property name="text">
+          <string>0.1</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0">
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>&lt;i&gt;t&lt;sub&gt;max&lt;/sub&gt;&lt;/i&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="2">
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>кол-во/сек</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="1" colspan="2">
+        <widget class="QLineEdit" name="lineEdit_Tmax">
          <property name="text">
           <string>10</string>
          </property>
         </widget>
        </item>
-       <item row="4" column="1">
+       <item row="5" column="1" colspan="2">
+        <widget class="QLineEdit" name="lineEdit_Fmax">
+         <property name="text">
+          <string>100</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="1" colspan="2">
+        <widget class="QLineEdit" name="lineEdit_tu">
+         <property name="text">
+          <string>1</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1" colspan="2">
         <widget class="QLineEdit" name="lineEdit_R">
          <property name="text">
           <string>0.5</string>
          </property>
         </widget>
        </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_12">
+       <item row="3" column="1" colspan="2">
+        <widget class="QLineEdit" name="lineEdit_T0">
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;T&lt;/span&gt;&lt;span style=&quot; font-style:italic; vertical-align:sub;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>300</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1" colspan="2">
+        <widget class="QLineEdit" name="lineEdit_l">
+         <property name="text">
+          <string>10</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1" colspan="2">
+        <widget class="QLineEdit" name="lineEdit_alphaN">
+         <property name="text">
+          <string>0.01</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1" colspan="2">
+        <widget class="QLineEdit" name="lineEdit_alpha0">
+         <property name="text">
+          <string>0.05</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="2" column="0">
+     <widget class="QGroupBox" name="groupBox_2">
+      <property name="styleSheet">
+       <string notr="true">QGroupBox::title {
+	subcontrol-position: top center;
+	margin-bottom: -20px;
+	font-size: 10px;
+}</string>
+      </property>
+      <property name="title">
+       <string>Extra Settings</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_4">
+       <item>
+        <widget class="QCheckBox" name="checkBox_X">
+         <property name="text">
+          <string>Посчитать таблицу h</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="checkBox_Tau">
+         <property name="text">
+          <string>Посчитать таблицу τ</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="checkBox_C">
+         <property name="text">
+          <string>График для разных c</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="checkBox_Impulse">
+         <property name="text">
+          <string>График с импульсами</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -251,6 +346,19 @@
    <header>QtCharts</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>lineEdit_alpha0</tabstop>
+  <tabstop>lineEdit_alphaN</tabstop>
+  <tabstop>lineEdit_l</tabstop>
+  <tabstop>lineEdit_T0</tabstop>
+  <tabstop>lineEdit_R</tabstop>
+  <tabstop>lineEdit_Fmax</tabstop>
+  <tabstop>lineEdit_Tmax</tabstop>
+  <tabstop>button_Calculate</tabstop>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>chart_Impulse</tabstop>
+  <tabstop>chart_AB</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

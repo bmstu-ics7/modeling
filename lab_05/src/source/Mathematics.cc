@@ -3,22 +3,99 @@
 
 Mathematics::Mathematics(
     const double alpha0, const double alphaN, const double l,
-    const double T0, const double R, const double Ft,
-    const bool again, const bool another
+    const double T0, const double R, const double Fmax, const double Tmax,
+    const double nu, const double tu,
+    const bool needX, const bool needTau,
+    const bool needC, const bool needImpulse
 ) : _alpha0(alpha0), _alphaN(alphaN), _l(l),
-    _T0(T0), _R(R), _Ft(Ft),
-    _again(again), _anotherStart(another)
+    _T0(T0), _R(R), _Fmax(Fmax), _Tmax(Tmax),
+    _nu(1.0 / nu), _tu(tu)
 {
-    if (_anotherStart) {
-        _Ft = 0;
+    if (needX) {
+        _onlyFirst = false;
+        _epsRun = 1e-1;
+        _epsIt = 1e-3;
+
+        _tau = 0.1;
+        double stepH[] = { 1 , 0.1 , 0.01, 0.001 };
+
+        for (int i = 0; i < 4; ++i) {
+            temp = QVector<QVector<double>>();
+            _h = stepH[i];
+
+            iterations();
+
+            QVector<double> row;
+            for (auto t : temp) {
+                row.append(t[0]);
+            }
+
+            testH.append(row);
+        }
     }
 
-    iterations();
+    if (needTau) {
+        _epsRun = 1e-2;
+        _epsIt = 1e-6;
 
-    if (_again) {
-        _Ft = 0;
-        _secondRun = true;
+        _h = 0.01;
+        double stepTau[] = { 1, 0.1, 0.01, 0.001 };
+        _onlyFirst = true;
+
+        for (int i = 0; i < 4; ++i) {
+            temp = QVector<QVector<double>>();
+            _tau = stepTau[i];
+
+            iterations();
+            QVector<double> row;
+
+            for (auto t : temp[1 / _tau - 1]) {
+                row.append(t);
+            }
+
+            testTau.append(row);
+        }
+    }
+
+    if (needC) {
+        _tau = _Tmax / 1000.0;
+        _h = 0.01;
+
+        _onlyFirst = false;
+        double a[] = { 2.049, 5, 10, 25 };
+        double b[] = { 0.000564, 0.001, 0.01, 0.1 };
+        _epsRun = 1e-3;
+        _epsIt = 1e-6;
+
+        for (int i = 0; i < 4; ++i) {
+            temp = QVector<QVector<double>>();
+            _a2 = a[i];
+            _b2 = b[i];
+
+            iterations();
+
+            QVector<double> row;
+            for (auto t : temp) {
+                row.append(t[0]);
+            }
+
+            testAB.append(row);
+        }
+    }
+
+    if (needImpulse) {
+        _onlyFirst = false;
+        _impulse = true;
+        _epsRun = 1e-1;
+        _epsIt = 1e-6;
+        _h = 0.01;
+        _tau = _Tmax / 1000.0;
+
+        temp = QVector<QVector<double>>();
         iterations();
+        for (auto t : temp) {
+            testImpulse.append(t[0]);
+        }
     }
 }
 
@@ -91,19 +168,15 @@ double Mathematics::f1_2(const double x, const double h)
 
 void Mathematics::iterations()
 {
-    if (!_secondRun) {
-        QVector<double> tZero;
-        int n = int(_l / _h) + 1;
-        for (int i = 0; i < n; ++i) {
-            if (_anotherStart) {
-                tZero.append(1000);
-            } else {
-                tZero.append(_T0);
-            }
-        }
-
-        temp.append(tZero);
+    QVector<double> tZero;
+    int n = int(_l / _h) + 1;
+    for (int i = 0; i < n; ++i) {
+        tZero.append(_T0);
     }
+
+    temp.append(tZero);
+
+    double t = _tau;
 
     do {
         QVector<double> prev;
@@ -111,14 +184,18 @@ void Mathematics::iterations()
 
         do {
             prev = curr;
-            curr = runTrought(prev);
+            curr = runTrought(prev, t);
         } while (!endRunTrought(prev, curr));
 
+        t += _tau;
         temp.append(curr);
+
+        if (_onlyFirst && t >= 1)
+            break;
     } while (!endIterations());
 }
 
-QVector<double> Mathematics::runTrought(const QVector<double> &prev)
+QVector<double> Mathematics::runTrought(const QVector<double> &prev, const double t)
 {
     const double K0 = _h / 8.0 * c1_2(prev[0], _tau) +
         _h / 4.0 * c(prev[0]) + chi1_2(prev[0], _tau) *
@@ -129,7 +206,7 @@ QVector<double> Mathematics::runTrought(const QVector<double> &prev)
         _tau * _h / 8.0 * p1_2(0, _h);
     const double P0 = _h / 8.0 * c1_2(prev[0], _tau) * (prev[0] + prev[1]) +
         _h / 4.0 * c(prev[0]) * prev[0] +
-        _Ft * _tau +
+        F(t) * _tau +
         _tau * _h / 4.0 * (f1_2(0, _h) + f(0));
 
     const double KN = _h / 4.0 * c(prev.last()) +
@@ -142,15 +219,16 @@ QVector<double> Mathematics::runTrought(const QVector<double> &prev)
         chi1_2(prev.last(), -_tau) * _tau / _h +
         p1_2(_l, -_h) * _tau * _h / 8.0;
     const double PN = _h / 4.0 * c(prev.last()) * prev.last() +
-        _h / 8.0 * c1_2(prev.last(), -_tau) * prev[prev.count() - 2] +
-        _h / 8.0 * c1_2(prev.last(), -_tau) * prev.last() +
+        _h / 8.0 * c1_2(prev.last(), -_tau) * prev[prev.count() - 2] + _h / 8.0 * c1_2(prev.last(), -_tau) * prev.last() +
         _T0 * _alphaN * _tau +
         (f(_l) + f1_2(_l, -_h)) * _tau * _h / 4.0;
 
     QVector<double> eps;
+    eps.append(0);
     eps.append(-M0 / K0);
 
     QVector<double> eta;
+    eta.append(0);
     eta.append(P0 / K0);
 
     int n = 1;
@@ -162,21 +240,21 @@ QVector<double> Mathematics::runTrought(const QVector<double> &prev)
             (B(prev[n], x) - A(prev[n]) * epsN));
     }
 
-    QVector<double> t(eps.count());
-    t[t.count() - 1] = (PN - MN * eta.last()) / (KN + MN * eps.last());
+    QVector<double> y(eps.count());
+    y[y.count() - 1] = (PN - MN * eta.last()) / (KN + MN * eps.last());
 
-    for (int i = t.count() - 2; i >= 0; --i) {
-        t[i] = eps[i + 1] * t[i + 1] + eta[i + 1];
+    for (int i = y.count() - 2; i >= 0; --i) {
+        y[i] = eps[i + 1] * y[i + 1] + eta[i + 1];
     }
 
-    return t;
+    return y;
 }
 
 bool Mathematics::endIterations()
 {
     int last = temp.count() - 1;
     for (int i = 0; i < temp[last].count(); ++i) {
-        if (std::fabs((temp[last][i] - temp[last - 1][i]) / temp[last][i]) > _eps)
+        if (std::fabs((temp[last][i] - temp[last - 1][i]) / temp[last][i]) > _epsIt)
             return false;
     }
 
@@ -197,5 +275,14 @@ bool Mathematics::endRunTrought(
             max = e;
     }
 
-    return max < 1;
+    return max < _epsRun;
+}
+
+double Mathematics::F(const double t)
+{
+    if (_impulse && t - int(t / _nu) * _nu > _tu) {
+        return 0;
+    }
+
+    return (_Fmax / _Tmax) * t * std::exp(-(t / _Tmax - 1));
 }
