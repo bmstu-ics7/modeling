@@ -1,15 +1,16 @@
 #include "Mathematics.h"
 #include <cmath>
+#include <QDebug>
 
 Mathematics::Mathematics(
     const double alpha0, const double alphaN, const double l,
     const double T0, const double R, const double Fmax, const double Tmax,
-    const double nu, const double tu,
+    const double nu,
     const bool needX, const bool needTau, const bool needXn,
     const bool needC, const bool needImpulse
 ) : _alpha0(alpha0), _alphaN(alphaN), _l(l),
     _T0(T0), _R(R), _Fmax(Fmax), _Tmax(Tmax),
-    _nu(1.0 / nu), _tu(tu)
+    _nu(1.0 / nu)
 {
     if (needX) {
         _onlyFirst = false;
@@ -97,7 +98,7 @@ Mathematics::Mathematics(
         _onlyFirst = false;
         _impulse = true;
         _epsRun = 1e-1;
-        _epsIt = 1e-6;
+        _epsIt = 1e-4;
         _h = 0.01;
         _tau = _Tmax / 1000.0;
 
@@ -202,7 +203,7 @@ void Mathematics::iterations()
 
         if (_onlyFirst && t >= 1)
             break;
-    } while (!endIterations());
+    } while (!endIterations(t));
 }
 
 QVector<double> Mathematics::runTrought(const QVector<double> &prev, const double t)
@@ -260,8 +261,12 @@ QVector<double> Mathematics::runTrought(const QVector<double> &prev, const doubl
     return y;
 }
 
-bool Mathematics::endIterations()
+bool Mathematics::endIterations(const double t)
 {
+    if (_impulse) {
+        return t > 300;
+    }
+
     int last = temp.count() - 1;
     for (int i = 0; i < temp[last].count(); ++i) {
         if (std::fabs((temp[last][i] - temp[last - 1][i]) / temp[last][i]) > _epsIt)
@@ -290,8 +295,12 @@ bool Mathematics::endRunTrought(
 
 double Mathematics::F(const double t)
 {
-    if (_impulse && t - int(t / _nu) * _nu > _tu) {
-        return 0;
+    if (_impulse) {
+        //double newT = t - int(t / _nu) * _nu;
+        double newT = std::round(std::fmod(t, _nu) * 100) / 100.0;
+        if (_nu <= 0.001) newT = 10;
+        qDebug() << t << newT;
+        return (_Fmax / _Tmax) * newT * std::exp(-(newT / _Tmax - 1));
     }
 
     return (_Fmax / _Tmax) * t * std::exp(-(t / _Tmax - 1));

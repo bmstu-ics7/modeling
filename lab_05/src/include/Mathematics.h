@@ -9,7 +9,7 @@ public:
     Mathematics(
         const double alpha0, const double alphaN, const double l,
         const double T0, const double R, const double Fmax, const double Tmax,
-        const double nu, const double tu,
+        const double nu,
         const bool needX, const bool needTau, const bool needXn,
         const bool needC, const bool needImpulse
     );
@@ -42,7 +42,7 @@ private:
     double c1_2(const double T, const double tau);
     double p1_2(const double x, const double h);
     double f1_2(const double x, const double h);
-    bool endIterations();
+    bool endIterations(const double t);
     QVector<double> runTrought(const QVector<double> &prev, const double t);
     bool endRunTrought(
         const QVector<double> &prev,
@@ -78,7 +78,6 @@ private:
     bool _impulse = false;
 
     const double _nu;
-    const double _tu;
 };
 
 #endif // __MATHEMATICS_H

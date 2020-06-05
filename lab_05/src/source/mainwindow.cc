@@ -34,7 +34,6 @@ void MainWindow::click_calculate()
     double Fmax       = ui->lineEdit_Fmax->text().toDouble();
     double Tmax       = ui->lineEdit_Tmax->text().toDouble();
     double nu         = ui->lineEdit_nu->text().toDouble();
-    double tu         = ui->lineEdit_tu->text().toDouble();
     bool needX        = ui->checkBox_X->isChecked();
     bool needTau      = ui->checkBox_Tau->isChecked();
     bool needXn       = ui->checkBox_Xn->isChecked();
@@ -43,7 +42,7 @@ void MainWindow::click_calculate()
 
     Mathematics math(
         alpha0, alphaN,
-        l, T0, R, Fmax, Tmax, nu, tu,
+        l, T0, R, Fmax, Tmax, nu,
         needX, needTau, needXn, needC, needImpulse
     );
 
