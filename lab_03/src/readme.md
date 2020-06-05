@@ -1,5 +1,9 @@
 # Build and run
 
+## With Qt Creator
+
+Open file `CMakeLists.txt` in Qt Creator
+
 ## With make
 
 ```
