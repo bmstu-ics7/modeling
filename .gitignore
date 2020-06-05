@@ -311,3 +311,6 @@ TSWLatexianTemp*
 
 # MacOS files
 .DS_Store
+
+# Compile commands
+compile_commands.json
