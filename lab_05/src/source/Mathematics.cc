@@ -1,6 +1,5 @@
 #include "Mathematics.h"
 #include <cmath>
-#include <QDebug>
 
 Mathematics::Mathematics(
     const double alpha0, const double alphaN, const double l,
@@ -298,7 +297,6 @@ double Mathematics::F(const double t)
     if (_impulse) {
         double newT = std::round(std::fmod(t, _nu) * 100) / 100.0;
         if (_nu <= 0.001) newT = 10;
-        qDebug() << t << newT;
         return (_Fmax / _Tmax) * newT * std::exp(-(newT / _Tmax - 1));
     }
 
