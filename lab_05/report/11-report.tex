@@ -32,19 +32,6 @@
         , где $F_\text{max}$ -- амплитуда импульса потока, $t_\text{max}$ -- время достижения амплитуды.
 \end{enumerate}
 
-\section{ЛИСТИНГИ}
-
-\begin{lstlisting}[caption=Функция потока тепла]
-double Mathematics::F(const double t)
-{
-    if (_impulse && t - int(t / _nu) * _nu > _tu) {
-        return 0;
-    }
-
-    return (_Fmax / _Tmax) * t * std::exp(-(t / _Tmax - 1));
-}
-\end{lstlisting}
-
 \section{РЕЗУЛЬТАТЫ РАБОТЫ}
 
 \begin{enumerate}
@@ -125,4 +112,50 @@ double Mathematics::F(const double t)
         По этим графикам можно сделать вывод, что с увеличением теплоемкости темп роста и максимально значение температуры уменьшаются.
 
     \item \textbf{График зависимости температуры $T\big( 0, t \big)$ (т.е. при $x = 0$ ) в частотном режиме теплового нагружения. Импульсы следуют один за другим с заданной частотой $\nu$ (частота определяется количеством импульсов в 1 секунду).}
+
+        Подобраны такие $F_\text{max}$ и $t_\text{max}$, чтобы температуры не выходила за пределы 2000 K. На рисунках \ref{img:impulse1}, \ref{img:impulse2}, \ref{img:impulse3}, \ref{img:impulse4} видно, что при увеличении частоты размах колебаний температуры уменьшается вплоть до нуля, как видно на рисунке \ref{img:impulse4}.
+
+        \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.35]{img/impulse1.png}
+            \caption{Частота $\nu = 0.01$}
+            \label{img:impulse1}
+        \end{figure}
+
+        \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.35]{img/impulse2.png}
+            \caption{Частота $\nu = 0.0625$}
+            \label{img:impulse2}
+        \end{figure}
+
+        \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.35]{img/impulse3.png}
+            \caption{Частота $\nu = 0.1$}
+            \label{img:impulse3}
+        \end{figure}
+
+        \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.35]{img/impulse4.png}
+            \caption{Частота $\nu = 100$}
+            \label{img:impulse4}
+        \end{figure}
+
+        Полученное температурное поле совпадает с результатом расчета по программе лабораторной работы №3 при всех одинаковых параметрах модели. На рисунке \ref{img:lab_03} график, полученный программой из третьей лабораторной работы, а на рисунке \ref{img:lab_03_new} -- из текущей.
+
+        \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.35]{img/lab_03.png}
+            \caption{График из третьей лабораторной работы}
+            \label{img:lab_03}
+        \end{figure}
+
+        \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.35]{img/lab_03_new.png}
+            \caption{График из текущей лабораторной работы}
+            \label{img:lab_03_new}
+        \end{figure}
 \end{enumerate}
