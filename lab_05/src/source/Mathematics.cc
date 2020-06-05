@@ -296,7 +296,7 @@ double Mathematics::F(const double t)
 {
     if (_impulse) {
         double newT = std::round(std::fmod(t, _nu) * 100) / 100.0;
-        if (_nu <= 0.001) newT = 10;
+        if (_nu <= 0.01) newT = 10;
         return (_Fmax / _Tmax) * newT * std::exp(-(newT / _Tmax - 1));
     }
 
