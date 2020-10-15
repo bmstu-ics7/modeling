@@ -3,7 +3,16 @@
 from datetime import datetime
 
 
-def random_digit():
+def get_number(row, now_ms, count):
+    first_digit = row[now_ms % 60]
+    number = "1" if first_digit == "0" else first_digit
+
+    for j in range(1, count):
+        number += row[(now_ms + j) % 60]
+    return int(number)
+
+
+def table_random(count):
     time = datetime.now()
     now_ms = time.microsecond % 60
     now_second = time.second
@@ -20,17 +29,9 @@ def random_digit():
         for row in opened:
             i += 1
             if i == now_second:
-                return int(row[now_ms])
+                return get_number(row, now_ms, count)
 
     return None
-
-
-def table_random(count):
-    result = 0
-    for _ in range(count):
-        digit = random_digit()
-        result = result * 10 + digit
-    return result
 
 
 if __name__ == "__main__":
