@@ -314,3 +314,7 @@ TSWLatexianTemp*
 
 # Compile commands
 compile_commands.json
+
+# Python evironment
+**/env/**
+**/__pycache__/**
