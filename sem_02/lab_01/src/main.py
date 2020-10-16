@@ -5,7 +5,6 @@ import argparse
 from prettytable import PrettyTable
 from table_method import table_random
 from program_method import program_random
-from scipy.stats import chisquare
 import criterion
 
 
@@ -101,15 +100,15 @@ def main():
         "\033[1mПрогр. 3 цифры\033[0m",
     ]
 
-    chi_table_one = chisquare(table_random_one)
-    chi_table_two = chisquare(table_random_two)
-    chi_table_thr = chisquare(table_random_thr)
-    chi_progr_one = chisquare(progr_random_one)
-    chi_progr_two = chisquare(progr_random_two)
-    chi_progr_thr = chisquare(progr_random_thr)
+    chi_table_one = criterion.calc_hi(table_random_one)
+    chi_table_two = criterion.calc_hi(table_random_two)
+    chi_table_thr = criterion.calc_hi(table_random_thr)
+    chi_progr_one = criterion.calc_hi(progr_random_one)
+    chi_progr_two = criterion.calc_hi(progr_random_two)
+    chi_progr_thr = criterion.calc_hi(progr_random_thr)
 
     table_xi.add_row([
-        "Полученный результат",
+        "chi^2",
         "{:.4f}".format(chi_table_one[0]),
         "{:.4f}".format(chi_table_two[0]),
         "{:.4f}".format(chi_table_thr[0]),
@@ -119,13 +118,13 @@ def main():
     ])
 
     table_xi.add_row([
-        "Ожидаемый результат",
-        "{:.4f}".format(chi_table_one[1]),
-        "{:.4f}".format(chi_table_two[1]),
-        "{:.4f}".format(chi_table_thr[1]),
-        "{:.4f}".format(chi_progr_one[1]),
-        "{:.4f}".format(chi_progr_two[1]),
-        "{:.4f}".format(chi_progr_thr[1]),
+        "p",
+        "{:.4f}".format(chi_table_one[1] * 100),
+        "{:.4f}".format(chi_table_two[1] * 100),
+        "{:.4f}".format(chi_table_thr[1] * 100),
+        "{:.4f}".format(chi_progr_one[1] * 100),
+        "{:.4f}".format(chi_progr_two[1] * 100),
+        "{:.4f}".format(chi_progr_thr[1] * 100),
     ])
 
     print(table_xi)
