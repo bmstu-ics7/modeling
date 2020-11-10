@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>lab_03</title>
+</head>
+<body>
+    <div>
+        <div class="buttoncontainer">
+            <a href="/minus" class="button">Удалить</a>
+            <a href="/plus" class="button">Добавить</a>
+        </div>
+    </div>
+
+    <form method="POST">
+    <table border="1">
+        <tr>
+            <td style="width: 30px;"></td>
+            {% for i in range(1, session["count"] + 1) %}
+                <td style="width: 30px;">{{ i }}</td>
+            {% endfor %}
+        </tr>
+        {% for i in range(1, session["count"] + 1) %}
+            <tr>
+                <td>{{ i }}</td>
+                {% for j in range(session["count"]) %}
+                    <td style="width: 30px;">
+                        {% if i - 1 < session["data"]|length and j < session["data"][i-1]|length and session["data"][i-1][j] != 0 %}
+                            <input style="width: 30px;" name="{{ session["count"] * (i - 1) + j }}" type="text" value="{{ session["data"][i-1][j] }}" />
+                        {% else %}
+                            <input style="width: 30px;" name="{{ session["count"] * (i - 1) + j }}" type="text" />
+                        {% endif %}
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+    <input type="submit" class="button" />
+    </form>
+    <table border="1">
+        <tr>
+            <td>Состояние</td>
+            <td>Среднее время пребывания</td>
+        </tr>
+        {% if session["result"]|length > 0 %}
+            {% for i in range(session["count"]) %}
+                <tr>
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ session["result"][i] }}</td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+    </table>
+</body>
+<style>
+.buttoncontainer {
+    display: flex;
+}
+
+.button {
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid black;
+    display: block;
+    text-decoration: none;
+    color: black;
+    background-color: white;
+}
+
+.button: hover {
+    cursor: pointer;
+}
+</style>
+</html>
