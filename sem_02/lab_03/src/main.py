@@ -58,7 +58,6 @@ def solve():
     m[-1] = 1
     coef[-1] = 1
     out = np.linalg.solve(coef, m)
-    session["relative_result"] = out.tolist()
     time = (1 - out) / out / summ
     session["result"] = time.tolist()
 

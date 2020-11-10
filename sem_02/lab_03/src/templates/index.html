@@ -41,14 +41,12 @@
         <tr>
             <td>Состояние</td>
             <td>Среднее время пребывания</td>
-            <td>Относительное время пребывания</td>
         </tr>
         {% if session["result"]|length > 0 %}
             {% for i in range(session["count"]) %}
                 <tr>
                     <td>{{ i + 1 }}</td>
                     <td>{{ session["result"][i] }}</td>
-                    <td>{{ session["relative_result"][i] }}</td>
                 </tr>
             {% endfor %}
         {% endif %}
