@@ -26,9 +26,9 @@
                 {% for j in range(session["count"]) %}
                     <td style="width: 30px;">
                         {% if i - 1 < session["data"]|length and j < session["data"][i-1]|length and session["data"][i-1][j] != 0 %}
-                            <input name="{{ session["count"] * (i - 1) + j }}" type="text" value="{{ session["data"][i-1][j] }}"/>
+                            <input style="width: 30px;" name="{{ session["count"] * (i - 1) + j }}" type="text" value="{{ session["data"][i-1][j] }}" />
                         {% else %}
-                            <input name="{{ session["count"] * (i - 1) + j }}" type="text" />
+                            <input style="width: 30px;" name="{{ session["count"] * (i - 1) + j }}" type="text" />
                         {% endif %}
                     </td>
                 {% endfor %}
@@ -37,10 +37,22 @@
     </table>
     <input type="submit" class="button" />
     </form>
-
-    {% if session["result"] %}
-        Hello
-    {% endif %}
+    <table border="1">
+        <tr>
+            <td>Состояние</td>
+            <td>Среднее время пребывания</td>
+            <td>Относительное время пребывания</td>
+        </tr>
+        {% if session["result"]|length > 0 %}
+            {% for i in range(session["count"]) %}
+                <tr>
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ session["result"][i] }}</td>
+                    <td>{{ session["relative_result"][i] }}</td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+    </table>
 </body>
 <style>
 .buttoncontainer {
