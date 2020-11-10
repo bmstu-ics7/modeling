@@ -59,7 +59,7 @@ def solve():
     coef[-1] = 1
     out = np.linalg.solve(coef, m)
     time = (1 - out) / out / summ
-    session["result"] = time.tolist()
+    session["result"] = [round(t, 4) for t in time.tolist()]
 
     return render_template("index.html", session=session)
 
