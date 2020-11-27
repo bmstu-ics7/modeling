@@ -1,12 +1,12 @@
-from .distribution import Uniform, Exponential
+from .distribution import Uniform, Normal
 from .generator import Generator
 from .processor import Processor
 
 
 class Modeller:
-    def __init__(self, uniform_a, uniform_b, expo_lambda, reenter_prop):
+    def __init__(self, uniform_a, uniform_b, n_mu, n_sigma, reenter_prop):
         self._generator = Generator(Uniform(uniform_a, uniform_b))
-        self._processor = Processor(Exponential(expo_lambda), reenter_prop)
+        self._processor = Processor(Normal(n_mu, n_sigma), reenter_prop)
         self._generator.add_receiver(self._processor)
 
     def event_based_modelling(self, request_count):

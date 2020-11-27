@@ -24,11 +24,19 @@
                 {% endif %}
             </tr>
             <tr>
-                <td>λ</td>
+                <td>μ</td>
                 {% if form|length == 0 %}
-                    <td><input name="lambda" type="text" /></td>
+                    <td><input name="mu" type="text" /></td>
                 {% else %}
-                    <td><input name="lambda" type="text" value="{{ form["lambda"] }}" /></td>
+                    <td><input name="mu" type="text" value="{{ form["mu"] }}" /></td>
+                {% endif %}
+            </tr>
+            <tr>
+                <td>σ</td>
+                {% if form|length == 0 %}
+                    <td><input name="sigma" type="text" /></td>
+                {% else %}
+                    <td><input name="sigma" type="text" value="{{ form["sigma"] }}" /></td>
                 {% endif %}
             </tr>
             <tr>

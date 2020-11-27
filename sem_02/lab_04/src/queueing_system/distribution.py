@@ -13,9 +13,10 @@ class Uniform:
         return nr.uniform(self._a, self._b)
 
 
-class Exponential:
-    def __init__(self, lambd):
-        self._lambda = 1 / lambd
+class Normal:
+    def __init__(self, mu, sigma):
+        self._mu = mu
+        self._sigma = sigma
 
     def generate(self):
-        return nr.exponential(self._lambda)
+        return nr.normal(self._mu, self._sigma)
