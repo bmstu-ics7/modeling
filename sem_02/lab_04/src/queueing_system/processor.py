@@ -16,14 +16,15 @@ class Processor(Generator):
             self._processed_requests += 1
             self._current_queue_size -= 1
             self.emit_request()
-            if nr.random_sample() < self._reenter_probability:
+            if nr.random_sample() <= self._reenter_probability:
                 self._reentered_requests += 1
+                self._processed_requests -= 1
                 self.receive_request()
 
     def receive_request(self):
         self._current_queue_size += 1
         if self._current_queue_size > self._max_queue_size:
-            self._max_queue_size += 1
+            self._max_queue_size = self._current_queue_size
 
     @property
     def processed_requests(self):
