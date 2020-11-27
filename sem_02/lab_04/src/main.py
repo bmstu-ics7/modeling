@@ -15,9 +15,10 @@ def index():
 def solve():
     a = float(request.form["a"])
     b = float(request.form["b"])
-    lam = float(request.form["lambda"])
+    mu = float(request.form["mu"])
+    sigma = float(request.form["sigma"])
     probality = float(request.form["reenter_probability"])
-    model = Modeller(a, b, lam, probality)
+    model = Modeller(a, b, mu, sigma, probality)
     count = int(request.form["count_request"])
     result = []
     if request.form["method"] == "event":
