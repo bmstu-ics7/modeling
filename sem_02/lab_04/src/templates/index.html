@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>lab_04</title>
+</head>
+<body>
+    <form method="POST">
+        <table border="0">
+            <tr>
+                <td>a</td>
+                {% if form|length == 0 %}
+                    <td><input name="a" type="text" /></td>
+                {% else %}
+                    <td><input name="a" type="text" value="{{ form["a"] }}" /></td>
+                {% endif %}
+            </tr>
+            <tr>
+                <td>b</td>
+                {% if form|length == 0 %}
+                    <td><input name="b" type="text" /></td>
+                {% else %}
+                    <td><input name="b" type="text" value="{{ form["b"] }}" /></td>
+                {% endif %}
+            </tr>
+            <tr>
+                <td>μ</td>
+                {% if form|length == 0 %}
+                    <td><input name="mu" type="text" /></td>
+                {% else %}
+                    <td><input name="mu" type="text" value="{{ form["mu"] }}" /></td>
+                {% endif %}
+            </tr>
+            <tr>
+                <td>σ</td>
+                {% if form|length == 0 %}
+                    <td><input name="sigma" type="text" /></td>
+                {% else %}
+                    <td><input name="sigma" type="text" value="{{ form["sigma"] }}" /></td>
+                {% endif %}
+            </tr>
+            <tr>
+                <td>Количество заявок</td>
+                {% if form|length == 0 %}
+                    <td><input name="count_request" type="text" /></td>
+                {% else %}
+                    <td><input name="count_request" type="text" value="{{ form["count_request"] }}" /></td>
+                {% endif %}
+            </tr>
+            <tr>
+                <td>Вероятность повторной обработки заявки</td>
+                {% if form|length == 0 %}
+                    <td><input name="reenter_probability" type="text" /></td>
+                {% else %}
+                    <td><input name="reenter_probability" type="text" value="{{ form["reenter_probability"] }}" /></td>
+                {% endif %}
+            </tr>
+            <tr>
+                <td>Метод моделирования</td>
+                <td>
+                    <select name="method">
+                        <option value="event" {% if form["method"] == "event" %} selected {% endif %}>Событийный</option>
+                        <option value="time" {% if form["method"] == "time" %} selected {% endif %}>Δt</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Δt</td>
+                {% if form|length == 0 %}
+                    <td><input name="dt" type="text" /></td>
+                {% else %}
+                    <td><input name="dt" type="text" value="{{ form["dt"] }}" /></td>
+                {% endif %}
+            </tr>
+        </table>
+        <input type="submit">
+    </form>
+
+    {% if result|length != 0 %}
+        <table border="0">
+            <tr>
+                <td>Количество обработанных заявок</td>
+                <td>{{ result[0] + result[1] }}</td>
+            </tr>
+            <tr>
+                <td>Количество повторно обработанных заявок</td>
+                <td>{{ result[1] }}</td>
+            </tr>
+            <tr>
+                <td>Максимальная длина очереди</td>
+                <td>{{ result[2] }}</td>
+            </tr>
+            <tr>
+                <td>Время работы</td>
+                <td>{{ result[3] }}</td>
+            </tr>
+        </table>
+    {% endif %}
+</body>
+</html>
