@@ -1,29 +1,24 @@
 # Моделирование
 
-| Лабораторная                                    | Код                      | Отчет                                            |
-| ----------------------------------------------- | ------------------------ | :----------------------------------------------- |
-| Метод Пикара и численный метод Эйлера.          | [lab_01/src](lab_01/src) | [lab_01/report/main.pdf](lab_01/report/main.pdf) |
-| ОДУ. Задача Коши. Разрядный контур.             | [lab_02/src](lab_02/src) | [lab_02/report/main.pdf](lab_02/report/main.pdf) |
-| ОДУ второго порядка с краевыми условиями        | [lab_03/src](lab_03/src) | [lab_03/report/main.pdf](lab_03/report/main.pdf) |
-| Дифференциальные уравнения с краевыми условиями | [lab_04/src](lab_04/src) | [lab_04/report/main.pdf](lab_04/report/main.pdf) |
-| Исследование математической модели              | [lab_05/src](lab_05/src) | [lab_05/report/main.pdf](lab_05/report/main.pdf) |
+## Семестр 1
 
-## Count lines of code
+| Лабораторная | Код | Отчет | Технология |
+|:---|:---|:---|:---|
+| Метод Пикара и численный метод Эйлера.          | [sem_01/lab_01/src](sem_01/lab_01/src) | [sem_01/lab_01/report/main.pdf](sem_01/lab_01/report/main.pdf) |![Haskell](https://img.shields.io/badge/-Haskell-%23000000?logo=haskell&style=flat-square)|
+| ОДУ. Задача Коши. Разрядный контур.             | [sem_01/lab_02/src](sem_01/lab_02/src) | [sem_01/lab_02/report/main.pdf](sem_01/lab_02/report/main.pdf) |![C++](https://img.shields.io/badge/-%D0%A1%2B%2B-%23000000?logo=qt&style=flat-square)|
+| ОДУ второго порядка с краевыми условиями        | [sem_01/lab_03/src](sem_01/lab_03/src) | [sem_01/lab_03/report/main.pdf](sem_01/lab_03/report/main.pdf) |![C++](https://img.shields.io/badge/-%D0%A1%2B%2B-%23000000?logo=qt&style=flat-square)|
+| Дифференциальные уравнения с краевыми условиями | [sem_01/lab_04/src](sem_01/lab_04/src) | [sem_01/lab_04/report/main.pdf](sem_01/lab_04/report/main.pdf) |![C++](https://img.shields.io/badge/-%D0%A1%2B%2B-%23000000?logo=qt&style=flat-square)|
+| Исследование математической модели              | [sem_01/lab_05/src](sem_01/lab_05/src) | [sem_01/lab_05/report/main.pdf](sem_01/lab_05/report/main.pdf) |![C++](https://img.shields.io/badge/-%D0%A1%2B%2B-%23000000?logo=qt&style=flat-square)|
 
-```
--------------------------------------------------------------------------------
-Language                     files          blank        comment           code
--------------------------------------------------------------------------------
-TeX                             20            454              0           1905
-C/C++ Header                    15            255             21           1738
-C++                             16            353             64           1638
-Qt                               4              0              0           1115
-JSON                             7             11              0            512
-C                                1            114             50            507
-CMake                           14            111             20            427
-Markdown                         7             38              0            131
-Haskell                          1              7              0             65
--------------------------------------------------------------------------------
-SUM:                            85           1343            155           8038
--------------------------------------------------------------------------------
-```
+## Семестр 2
+
+| Лабораторная | Код | Отчет | Технология |
+|:---|:---|:---|:---|
+|Генерация псевдослучайных чисел|[sem_02/lab_01/src](sem_02/lab_01/src) | [sem_02/lab_01/report/main.pdf](sem_02/lab_01/report/main.pdf) |![Python](https://img.shields.io/badge/-Python-%23000000?logo=python&style=flat-square)|
+|Функции и плотности распределения случайных величин|[sem_02/lab_02/src](sem_02/lab_02/src) | [sem_02/lab_02/report/main.pdf](sem_02/lab_02/report/main.pdf) |![Python](https://img.shields.io/badge/-Python-%23000000?logo=jupyter&style=flat-square)|
+|Марков процесс|[sem_02/lab_03/src](sem_02/lab_03/src) | [sem_02/lab_03/report/main.pdf](sem_02/lab_03/report/main.pdf) |![Python](https://img.shields.io/badge/-Python-%23000000?logo=python&style=flat-square)|
+|Моделирование системы с очередью|[sem_02/lab_04/src](sem_02/lab_04/src) | [sem_02/lab_04/report/main.pdf](sem_02/lab_04/report/main.pdf) |![Python](https://img.shields.io/badge/-Python-%23000000?logo=python&style=flat-square)|
+|Моделирование информационного центра|[sem_02/lab_05/src](sem_02/lab_05/src) | [sem_02/lab_05/report/main.pdf](sem_02/lab_05/report/main.pdf) |![Python](https://img.shields.io/badge/-Python-%23000000?logo=python&style=flat-square)|
+|Моделирование работы банка|[sem_02/lab_06/src](sem_02/lab_06/src) | [sem_02/lab_06/report/main.pdf](sem_02/lab_06/report/main.pdf) |![Python](https://img.shields.io/badge/-Python-%23000000?logo=python&style=flat-square)|
+|Моделирование информационного центра на языке GPSS|[sem_02/lab_07/src](sem_02/lab_07/src) | [sem_02/lab_07/report/main.pdf](sem_02/lab_07/report/main.pdf) |![GPSS](https://img.shields.io/badge/-GPSS-%23000000?style=flat-square)|
+|Моделирование работы банка на языке GPSS|[sem_02/lab_08/src](sem_02/lab_08/src) | [sem_02/lab_08/report/main.pdf](sem_02/lab_08/report/main.pdf) |![GPSS](https://img.shields.io/badge/-GPSS-%23000000?style=flat-square)|
